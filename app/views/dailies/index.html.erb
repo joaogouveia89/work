@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dailies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dailies.each do |daily| %>
+      <tr>
+        <td><%= daily.task_id %></td>
+        <td><%= daily.notes %></td>
+        <td><%= link_to 'Show', daily %></td>
+        <td><%= link_to 'Edit', edit_daily_path(daily) %></td>
+        <td><%= link_to 'Destroy', daily, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Daily', new_task_daily_path %>
