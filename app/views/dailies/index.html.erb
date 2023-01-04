@@ -1,30 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Dailies for <%= @ticket.name %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @dailies.each do |daily| %>
-      <tr>
-        <td><%= daily.updated_at.strftime("%d/%m/%Y %I:%M %p") %></td>
-        <td><%= daily.notes_truncated %></td>
-        <td><%= link_to 'Show', ticket_daily_url(@ticket.id, daily) %></td>
-        <td><%= link_to 'Edit', edit_ticket_daily_path(@ticket.id,daily) %></td>
-        <td><%= link_to 'Destroy', ticket_daily_url(@ticket.id, daily), :confirm => 'Are you sure?', :method => :delete %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<h1>Notas <%= @ticket.name %></h1>
 <br>
 
-<%= link_to 'New Daily', new_ticket_daily_path %>
-<%= link_to 'Back', tickets_path%>
+<%= link_to 'Nova nota', new_ticket_daily_path %>
+<%= link_to 'Voltar', tickets_path%>
+
+<%= render 'daily_list_section', section_name: "De hoje", list: @from_today %>
+<%= render 'daily_list_section', section_name: "De ontem", list: @from_yesterday %>
+<%= render 'daily_list_section', section_name: "Restantes", list: @rest_of_dailies %>

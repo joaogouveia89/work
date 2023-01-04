@@ -4,7 +4,18 @@ class DailiesController < ApplicationController
 
   # GET /dailies or /dailies.json
   def index
-    @dailies = Daily.where(ticket_id: @ticket.id)
+    today = DateTime.now.to_date
+    @dailies = Daily.where(ticket_id: @ticket.id).order(updated_at: :desc)
+    @from_today = @dailies.filter do |daily|
+      daily.updated_at.to_date == today
+    end
+
+    @from_yesterday = @dailies.filter do |daily|
+      daily.updated_at.to_date == (today - 1)
+    end
+
+    @rest_of_dailies = @dailies.to_a - @from_today - @from_yesterday
+
   end
 
   # GET /dailies/1 or /dailies/1.json
@@ -25,7 +36,7 @@ class DailiesController < ApplicationController
     @daily = Daily.new(daily_params)
     respond_to do |format|
       if @daily.save
-        format.html { redirect_to ticket_dailies_url(@daily), notice: "Daily was successfully created." }
+        format.html { redirect_to ticket_dailies_url(@ticket), notice: "Daily was successfully created." }
         format.json { render :show, status: :created, location: @daily }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +49,7 @@ class DailiesController < ApplicationController
   def update
     respond_to do |format|
       if @daily.update(daily_params)
-        format.html { redirect_to ticket_daily_url(@daily), notice: "Daily was successfully updated." }
+        format.html { redirect_to ticket_daily_url(@ticket, @daily), notice: "Daily was successfully updated." }
         format.json { render :show, status: :ok, location: @daily }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +61,6 @@ class DailiesController < ApplicationController
   # DELETE /dailies/1 or /dailies/1.json
   def destroy
     @daily.destroy
-
     respond_to do |format|
       format.html { redirect_to ticket_dailies_url(@ticket), notice: "Daily was successfully destroyed." }
       format.json { head :no_content }

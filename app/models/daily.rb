@@ -6,5 +6,5 @@ class Daily < ApplicationRecord
   end
 
   private
-  NOTE_TRUNCATED_SIZE = 100
+  NOTE_TRUNCATED_SIZE = 70
 end
