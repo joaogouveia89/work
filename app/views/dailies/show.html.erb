@@ -2,7 +2,7 @@
 
 <p>
   <strong>Task:</strong>
-  <%= @daily.task_id %>
+  <%= @ticket.name %>
 </p>
 
 <p>
@@ -10,5 +10,5 @@
   <%= @daily.notes %>
 </p>
 
-<%= link_to 'Edit', edit_daily_path(@daily) %> |
-<%= link_to 'Back', dailies_path %>
+<%= link_to 'Edit', edit_ticket_daily_path(@daily) %> |
+<%= link_to 'Back', ticket_dailies_url(@ticket) %>

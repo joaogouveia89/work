@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Dailies</h1>
+<h1>Dailies for <%= @ticket.name %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Task</th>
+      <th>Date</th>
       <th>Notes</th>
       <th colspan="3"></th>
     </tr>
@@ -14,11 +14,11 @@
   <tbody>
     <% @dailies.each do |daily| %>
       <tr>
-        <td><%= daily.task_id %></td>
-        <td><%= daily.notes %></td>
-        <td><%= link_to 'Show', daily %></td>
-        <td><%= link_to 'Edit', edit_daily_path(daily) %></td>
-        <td><%= link_to 'Destroy', daily, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= daily.updated_at.strftime("%d/%m/%Y %I:%M %p") %></td>
+        <td><%= daily.notes_truncated %></td>
+        <td><%= link_to 'Show', ticket_daily_url(@ticket.id, daily) %></td>
+        <td><%= link_to 'Edit', edit_ticket_daily_path(@ticket.id,daily) %></td>
+        <td><%= link_to 'Destroy', ticket_daily_url(@ticket.id, daily), :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Daily', new_task_daily_path %>
+<%= link_to 'New Daily', new_ticket_daily_path %>
+<%= link_to 'Back', tickets_path%>

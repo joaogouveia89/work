@@ -24,7 +24,6 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new(ticket_params)
     @ticket.status = Ticket.statuses[:open]
 
-    debugger
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to ticket_url(@ticket), notice: "Task was successfully created." }

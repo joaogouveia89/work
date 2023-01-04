@@ -1,10 +1,10 @@
 class DailiesController < ApplicationController
-  before_action :check_task
+  before_action :check_ticket
   before_action :set_daily, only: %i[ show edit update destroy ]
 
   # GET /dailies or /dailies.json
   def index
-    @dailies = Daily.all
+    @dailies = Daily.where(ticket_id: @ticket.id)
   end
 
   # GET /dailies/1 or /dailies/1.json
@@ -23,10 +23,9 @@ class DailiesController < ApplicationController
   # POST /dailies or /dailies.json
   def create
     @daily = Daily.new(daily_params)
-
     respond_to do |format|
       if @daily.save
-        format.html { redirect_to daily_url(@daily), notice: "Daily was successfully created." }
+        format.html { redirect_to ticket_dailies_url(@daily), notice: "Daily was successfully created." }
         format.json { render :show, status: :created, location: @daily }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +38,7 @@ class DailiesController < ApplicationController
   def update
     respond_to do |format|
       if @daily.update(daily_params)
-        format.html { redirect_to daily_url(@daily), notice: "Daily was successfully updated." }
+        format.html { redirect_to ticket_daily_url(@daily), notice: "Daily was successfully updated." }
         format.json { render :show, status: :ok, location: @daily }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +52,7 @@ class DailiesController < ApplicationController
     @daily.destroy
 
     respond_to do |format|
-      format.html { redirect_to dailies_url, notice: "Daily was successfully destroyed." }
+      format.html { redirect_to ticket_dailies_url(@ticket), notice: "Daily was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -66,13 +65,14 @@ class DailiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def daily_params
-      params.require(:daily).permit(:task_id, :notes)
+      params.require(:daily).merge(ticket_id: @ticket.id).permit(:notes, :ticket_id)
     end
 
-    def check_task
-      if Task.where(id: params[:task_id]).empty?
+    def check_ticket
+      @ticket = Ticket.where(id: params[:ticket_id]).first
+      if @ticket.nil?
         respond_to do |format|
-          format.html { redirect_to tasks_path, notice: "Task does not exist." }
+          format.html { redirect_to tickets_path, notice: "Ticket does not exist." }
           format.json { render :index, status: :unprocessable_entity }
         end
       end

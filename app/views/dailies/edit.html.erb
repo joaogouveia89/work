@@ -1,6 +1,6 @@
 <h1>Editing Daily</h1>
 
-<%= render 'form', daily: @daily %>
+<%= render 'form', ticket_dailies: @daily %>
 
-<%= link_to 'Show', @daily %> |
-<%= link_to 'Back', dailies_path %>
+<%= link_to 'Show', ticket_daily_url(@ticket, @daily) %> |
+<%= link_to 'Back', ticket_dailies_path(@ticket) %>
