@@ -16,6 +16,8 @@ class DailiesController < ApplicationController
 
     @rest_of_dailies = @dailies.to_a - @from_today - @from_yesterday
 
+    @past_days = calculate_past_days @dailies
+
   end
 
   # GET /dailies/1 or /dailies/1.json
@@ -85,6 +87,15 @@ class DailiesController < ApplicationController
           format.html { redirect_to tickets_path, notice: "Ticket does not exist." }
           format.json { render :index, status: :unprocessable_entity }
         end
+      end
+    end
+
+    def calculate_past_days dailies
+      if dailies.size == 0
+        0
+      else
+        end_reference = @ticket.open? ? DateTime.now.to_date : dailies.first.updated_at.to_date
+        (end_reference -  dailies.last.updated_at.to_date).to_i
       end
     end
 end

@@ -1,10 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Notas <%= @ticket.name %></h1>
+
+<br>
+
+<table border="1">
+  <tbody>
+    <tr>
+        <td>Duração</td>
+        <td><%= @past_days %> dias</td>
+    </tr>
+    <tr>
+        <td>Numero de notas</td>
+        <td><%= @dailies.size %></td>
+    </tr>
+  </tbody>
+</table>
 <br>
 
 <%= link_to 'Nova nota', new_ticket_daily_path %>
 <%= link_to 'Voltar', tickets_path%>
+
+<hr />
 
 <%= render 'daily_list_section', section_name: "De hoje", list: @from_today %>
 <%= render 'daily_list_section', section_name: "De ontem", list: @from_yesterday %>
