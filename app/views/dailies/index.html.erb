@@ -3,23 +3,13 @@
 <h1>Notas <%= @ticket.name %></h1>
 
 <br>
+<p><strong> Duração: </strong><%= @past_days %> dias </p>
+<p><strong> Número de notas: </strong><%= @dailies.size %> </p>
 
-<table border="1">
-  <tbody>
-    <tr>
-        <td>Duração</td>
-        <td><%= @past_days %> dias</td>
-    </tr>
-    <tr>
-        <td>Numero de notas</td>
-        <td><%= @dailies.size %></td>
-    </tr>
-  </tbody>
-</table>
 <br>
 
-<%= link_to 'Nova nota', new_ticket_daily_path %>
-<%= link_to 'Voltar', tickets_path%>
+<%= link_to 'Nova nota', new_ticket_daily_path, class: "btn btn-primary" %>
+<%= link_to 'Voltar', tickets_path, class: "btn btn-primary" %>
 
 <hr />
 
