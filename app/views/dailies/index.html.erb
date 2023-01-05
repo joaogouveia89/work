@@ -13,6 +13,6 @@
 
 <hr />
 
-<%= render 'daily_list_section', section_name: "De hoje", list: @from_today %>
-<%= render 'daily_list_section', section_name: "De ontem", list: @from_yesterday %>
-<%= render 'daily_list_section', section_name: "Restantes", list: @rest_of_dailies %>
+<%= render 'daily_list_section', section_name: "De hoje", list: @from_today, is_today: true %>
+<%= render 'daily_list_section', section_name: "De ontem", list: @from_yesterday, is_today: false %>
+<%= render 'daily_list_section', section_name: "Restantes", list: @rest_of_dailies, is_today: false %>
