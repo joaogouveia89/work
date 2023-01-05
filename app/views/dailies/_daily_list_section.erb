@@ -21,7 +21,7 @@
         <td><%= link_to 'Mostrar', ticket_daily_url(@ticket.id, daily), class: "btn btn-primary btn-sm" %></td>
         <% if is_today %>
           <td><%= link_to 'Editar', edit_ticket_daily_path(@ticket.id,daily), class: "btn btn-primary btn-sm" %></td>
-          <td><%= link_to 'Excluir', ticket_daily_url(@ticket.id, daily), :data => {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger btn-sm" %></td>
+          <td><%= link_to 'Excluir', ticket_daily_url(@ticket.id, daily), :data => {:confirm => 'Tem certeza que quer exluir essa nota?'}, :method => :delete, class: "btn btn-danger btn-sm" %></td>
         <% end %>
         </tr>
     <% end %>
