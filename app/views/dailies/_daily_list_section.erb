@@ -9,7 +9,9 @@
     <tr>
       <th scope="col">Data</th>
       <th scope="col">Nota</th>
-      <th scope="col" colspan="3"></th>
+      <% if is_today %>
+        <th scope="col" colspan="3"></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -17,8 +19,7 @@
     <% list.each do |daily| %>
       <tr>
         <td><%= daily.updated_at.strftime("%d/%m/%Y %I:%M %p") %></td>
-        <td><%= daily.notes_truncated %></td>
-        <td><%= link_to 'Mostrar', ticket_daily_url(@ticket.id, daily), class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to daily.notes_truncated, ticket_daily_url(@ticket.id, daily) %></td>
         <% if is_today %>
           <td><%= link_to 'Editar', edit_ticket_daily_path(@ticket.id,daily), class: "btn btn-primary btn-sm" %></td>
           <td><%= link_to 'Excluir', ticket_daily_url(@ticket.id, daily), :data => {:confirm => 'Tem certeza que quer exluir essa nota?'}, :method => :delete, class: "btn btn-danger btn-sm" %></td>
