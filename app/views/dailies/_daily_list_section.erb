@@ -7,18 +7,26 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Data</th>
+      <th scope="col" class="text-center">Horário</th>
       <th scope="col">Nota</th>
       <% if is_today %>
         <th scope="col" colspan="3"></th>
       <% end %>
     </tr>
   </thead>
+  
+  <% dates_headers = list.uniq { |p| p.updated_at.to_date } %>
 
   <tbody>
     <% list.each do |daily| %>
+      <% if dates_headers.size != 1 && dates_headers.find{ |h| h.id == daily.id } != nil %>
+        <tr>
+          <td colspan="4" class="text-center"><%= daily.updated_at.strftime("%d/%m/%Y") %></td>
+        </tr>
+      <% end %>
       <tr>
-        <td><%= daily.updated_at.strftime("%d/%m/%Y %I:%M %p") %></td>
+        <td class="text-center">
+          <%= daily.updated_at.strftime("%H:%M") %></td>
         <td><%= link_to daily.notes_truncated, ticket_daily_url(@ticket.id, daily) %></td>
         <% if is_today %>
           <td><%= link_to 'Editar', edit_ticket_daily_path(@ticket.id,daily), class: "btn btn-primary btn-sm" %></td>
