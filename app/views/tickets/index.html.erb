@@ -10,8 +10,8 @@
   <thead>
     <tr>
       <th scope="col">Nome</th>
-      <th scope="col">Status</th>
-      <th scope="col">Ultima atualização</th>
+      <th class="text-center" scope="col">Status</th>
+      <th class="text-center" scope="col">Ultima atualização</th>
     </tr>
   </thead>
 
@@ -19,8 +19,8 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= link_to ticket.name, ticket_dailies_url(ticket) %></td>
-        <td><span class="badge bg-success rounded-pill"><%= ticket.status.capitalize %></span></td>
-        <td><%= ticket.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
+        <td class="text-center"><span class="badge bg-success rounded-pill"><%= ticket.status.capitalize %></span></td>
+        <td class="text-center"><%= @last_update[ticket.id].strftime("%d/%m/%Y") %></td>
       </tr>
     <% end %>
   </tbody>
