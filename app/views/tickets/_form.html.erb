@@ -11,12 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <%= form.label :name, class: "form-label" %>
+        <div class="input-group">
+          <%= form.text_field :name, class: "form-control" %>
+          <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4"></div>
   </div>
 <% end %>
