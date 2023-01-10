@@ -34,7 +34,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to ticket_url(@ticket), notice: "Task was successfully created." }
+        format.html { redirect_to tickets_url, notice: "Ticket was successfully created." }
         format.json { render :show, status: :created, location: @ticket }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,8 +46,8 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
-      if @ticket.update(task_params)
-        format.html { redirect_to ticket_url(@ticket), notice: "Task was successfully updated." }
+      if @ticket.update(ticket_params)
+        format.html { redirect_to tickets_url, notice: "Ticket was successfully updated." }
         format.json { render :show, status: :ok, location: @ticket }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class TicketsController < ApplicationController
     @ticket.destroy
 
     respond_to do |format|
-      format.html { redirect_to tickets_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -74,6 +74,6 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:name)
+      params.require(:ticket).permit(:name, :status)
     end
 end
