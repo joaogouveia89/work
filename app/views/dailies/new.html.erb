@@ -1,5 +1,11 @@
-<h1>New Daily</h1>
+<br>
+
+<h1>Nova Nota</h1>
 
 <%= render 'form', ticket_dailies: @daily %>
 
-<%= link_to 'Back', ticket_dailies_path(@ticket) %>
+<br>
+
+<div class="actions d-grid gap-2">
+    <%= link_to 'Back', ticket_dailies_path(@ticket), class: 'btn btn-primary' %>
+</div>

@@ -11,12 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :notes %>
-    <%= form.text_area :notes %>
+  <div class="form-group">
+    <%= form.label :notes, class: "form-label" %>
+    <%= form.text_area :notes, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+
+  <div class="actions d-grid gap-2">
+    <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
   </div>
 <% end %>

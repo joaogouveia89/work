@@ -1,11 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Tickets</h1>
+<hr>
 
-<table>
+<%= link_to 'Novo ticket', new_ticket_path, class: "btn btn-primary" %>
+<br><br>
+
+<table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Status</th>
+      <th scope="col">Ultima atualização</th>
     </tr>
   </thead>
 
@@ -13,11 +19,9 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= link_to ticket.name, ticket_dailies_url(ticket) %></td>
+        <td><span class="badge bg-success rounded-pill"><%= ticket.status.capitalize %></span></td>
+        <td><%= ticket.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Task', new_ticket_path %>
