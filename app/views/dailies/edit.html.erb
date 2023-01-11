@@ -2,5 +2,12 @@
 
 <%= render 'form', ticket_dailies: @daily %>
 
-<%= link_to 'Show', ticket_daily_url(@ticket, @daily) %> |
-<%= link_to 'Back', ticket_dailies_path(@ticket) %>
+<br>
+<div class="row">
+    <div class="col-6 d-grid gap-2">
+        <%= link_to 'Detalhes', ticket_daily_url(@ticket, @daily), class: "btn btn-primary" %> 
+    </div>
+    <div class="col-6 d-grid gap-2">
+        <%= link_to 'Voltar', ticket_dailies_path(@ticket), class: "btn btn-primary" %>
+    </div>
+</div>
