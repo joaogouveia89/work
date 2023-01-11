@@ -1,8 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Notas <%= @ticket.name %></h1>
+<h1><%= @ticket.name %></h1>
+<%=  
+    button_to( (@ticket.open? ? 'Fechar' : 'Reabrir'),
+              ticket_path(@ticket.id),
+              params: {:ticket => {:id => @ticket.id, :status => (@ticket.open? ? "closed" : "open")}},
+              method: :put, data: { confirm: ("Tem certeza que quer " + (@ticket.open? ? "fechar" : "reabrir") + " o ticket " + @ticket.name) },
+              class: "btn btn-outline-" + (@ticket.open? ? 'danger' : 'primary') + " btn-sm")
+    %>
 
 <br>
+<% unless @dailies.size == 0 %>
+  <p><strong> Primeiro nota: </strong><%= @dailies.last.updated_at.strftime("%d/%m/%Y") %> </p>
+<% end %>
 <p><strong> Duração: </strong><%= @past_days %> dias </p>
 <p><strong> Número de notas: </strong><%= @dailies.size %> </p>
 
