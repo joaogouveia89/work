@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Task:</strong>
-  <%= @ticket.name %>
-</p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @daily.notes %>
-</p>
-
-<%= link_to 'Edit', edit_ticket_daily_path(@daily) %> |
-<%= link_to 'Back', ticket_dailies_url(@ticket) %>
+<div class="container-fluid py-5">
+  <h1 class="display-5 fw-bold"><%= @ticket.name %></h1>
+  <small class="text-muted">Data: <%= @daily.updated_at.strftime("%d/%m/%Y") %></small><br>
+  <small class="text-muted">Hora: <%= @daily.updated_at.strftime("%H:%M ") %></small>
+  <hr>
+  <p class="col-md-8 fs-4"><%= @daily.notes %></p>
+  <hr>
+  
+  <%= link_to 'Editar', edit_ticket_daily_path(@ticket, @daily), class: "btn btn-primary" %>
+  <%= link_to 'Voltar', ticket_dailies_url(@ticket), class: "btn btn-primary" %>
+  
+</div>
