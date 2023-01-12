@@ -11,7 +11,10 @@
 
 <br>
 <% unless @dailies.size == 0 %>
-  <p><strong> Primeiro nota: </strong><%= @dailies.last.updated_at.strftime("%d/%m/%Y") %> </p>
+  <p><strong> Primeira nota: </strong><%= @dailies.last.updated_at.strftime("%d/%m/%Y") %> </p>
+<% end %>
+<% if @ticket.closed? %>
+  <p><strong> Última nota: </strong><%= @dailies.first.updated_at.strftime("%d/%m/%Y") %> </p>
 <% end %>
 <p><strong> Duração: </strong><%= @past_days %> dias </p>
 <p><strong> Número de notas: </strong><%= @dailies.size %> </p>
