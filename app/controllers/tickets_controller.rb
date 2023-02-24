@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
     @tickets.each do|ticket|
       # if there is a ticket daily which is most recent comparing to ticket update, the last update is this daily date
       last_daily = Daily.where(ticket_id: ticket.id).order(updated_at: :desc).limit(1).first
-      @last_update[ticket.id] = [last_daily.updated_at, ticket.updated_at].max
+      @last_update[ticket.id] = last_daily == nil ?  ticket.updated_at : [last_daily.updated_at, ticket.updated_at].max
     end
   end
 
