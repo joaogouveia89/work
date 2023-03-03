@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+<% unless notice == nil %>
+  <div class="alert alert-primary alert-dismissible fade show" style="margin-top: 16px; margin-bottom: 16px;"role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
 <h1><%= @ticket.name %></h1>
 <%=  
