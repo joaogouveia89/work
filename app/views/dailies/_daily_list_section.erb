@@ -2,6 +2,7 @@
   <h4>Sem registros</h4>
 <% else %>
 <% dates_headers = list.uniq { |p| p.updated_at.to_date } %>
+<% is_today_or_yesterday = list.first.updated_at.to_date == @today || list.first.updated_at.to_date == (@today - 1) %>
 <table class="table">
   <thead>
     <tr>
@@ -15,7 +16,7 @@
 
   <tbody>
     <% list.each do |daily| %>
-      <% if dates_headers.size != 1 && dates_headers.find{ |h| h.id == daily.id } != nil %>
+      <% if !is_today_or_yesterday && dates_headers.find{ |h| h.id == daily.id } != nil %>
         <tr>
           <td colspan="4" class="text-center"><%= daily.updated_at.strftime("%d/%m/%Y") %></td>
         </tr>
