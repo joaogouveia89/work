@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.order(:status, :updated_at)
 
     @last_update = Hash.new
 
