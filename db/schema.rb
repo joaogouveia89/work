@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_02_132509) do
+ActiveRecord::Schema.define(version: 2023_03_14_150412) do
 
   create_table "dailies", force: :cascade do |t|
     t.integer "ticket_id", null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2023_01_02_132509) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ticket_id"], name: "index_dailies_on_tickets_id"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.integer "meetings"
+    t.integer "current_task"
+    t.integer "team_interaction"
+    t.integer "humor"
+    t.text "comments"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tickets", force: :cascade do |t|

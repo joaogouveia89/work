@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meetings:</strong>
+  <%= @journal.meetings %>
+</p>
+
+<p>
+  <strong>Current task:</strong>
+  <%= @journal.current_task %>
+</p>
+
+<p>
+  <strong>Team interaction:</strong>
+  <%= @journal.team_interaction %>
+</p>
+
+<p>
+  <strong>Humor:</strong>
+  <%= @journal.humor %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @journal.comments %>
+</p>
+
+<%= link_to 'Edit', edit_journal_path(@journal) %> |
+<%= link_to 'Back', journals_path %>

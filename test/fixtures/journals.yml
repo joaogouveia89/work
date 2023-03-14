@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meetings: 1
+  current_task: 1
+  team_interaction: 1
+  humor: 1
+  comments: MyText
+
+two:
+  meetings: 1
+  current_task: 1
+  team_interaction: 1
+  humor: 1
+  comments: MyText
