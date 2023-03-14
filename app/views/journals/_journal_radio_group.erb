@@ -1,0 +1,17 @@
+  <div class="form-group">
+    <%= form.label field %>
+    <br>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button field, 0, class: "form-check-input" %>
+      <%= form.label :bad, class: "form-check-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button field, 1, class: "form-check-input" %>
+      <%= form.label :medium, class: "form-check-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button field, 2, class: "form-check-input" %>
+      <%= form.label :good, class: "form-check-label" %>
+    </div>    
+    
+  </div>

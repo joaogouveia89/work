@@ -1,0 +1,20 @@
+<% classes = calendar_class_chain(day, @today, @journals) %>
+
+<% if classes.size == 0 %>
+    <td><%= day.day %></td>
+<% else %>
+    <td class="<%= classes %>">
+        <% if day.to_date == @today.to_date %>
+            <% if @today_journal == nil %>
+                <%= link_to (day.day.to_s), new_journal_path %>
+            <% else %>
+                <%= link_to (day.day.to_s), edit_journal_path(@today_journal) %>
+            <% end %>
+        <% elsif day.month == @today.month %>
+            <% journal_from_day = get_journal_from_day(day, @journals)%>
+            <%= journal_from_day == nil ? day.day.to_s : link_to( (day.day.to_s), journal_from_day)  %>
+        <% else %>
+            <%= day.day.to_s %>
+        <% end %>
+    </td>
+<% end %>

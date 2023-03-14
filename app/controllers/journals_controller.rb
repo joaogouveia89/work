@@ -1,10 +1,11 @@
 class JournalsController < ApplicationController
   before_action :set_journal, only: %i[ show edit update destroy ]
-  before_action :today, only: %i[ index ]
+  before_action :today_relatives, only: %i[ index ]
 
   # GET /journals or /journals.json
   def index
-    @journals = Journal.all
+    @journals = Journal.where(updated_at: [@month_first_day..(@month_last_day)])
+    @today_journal = @journals.select{ |j| j.updated_at.to_date == @today.to_date }.first
     @month_days = get_calendar_days
   end
 
@@ -70,17 +71,18 @@ class JournalsController < ApplicationController
       params.require(:journal).permit(:meetings, :current_task, :team_interaction, :humor, :comments)
     end
 
-    def today
+    def today_relatives
       @today = Date.today
+      @month_first_day = @today.beginning_of_month
+      @month_last_day = @today.end_of_month
     end
 
     def get_calendar_days
-       first_day = @today.beginning_of_month
-       last_day = @today.end_of_month
-       month_days = ((first_day)..(last_day)).to_a
+       
+       month_days = ((@month_first_day)..( @month_last_day)).to_a
 
-       last_month_days = (((first_day - (first_day.wday - 1))..first_day).to_a)[0...-1]
-       next_month_days = ((last_day..(last_day + (6 - last_day.wday))).to_a)
+       last_month_days = (((@month_first_day - (@month_first_day.wday - 1))..@month_first_day).to_a)[0...-1]
+       next_month_days = (( @month_last_day..( @month_last_day + (6 -  @month_last_day.wday))).to_a)
 
        calendar_days = last_month_days + month_days + next_month_days
 

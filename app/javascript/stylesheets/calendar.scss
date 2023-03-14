@@ -3,6 +3,10 @@
 	width: 510px;
 }
 
+.calendar a {
+	text-decoration: none;
+}
+
 .calendar-table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -85,8 +89,6 @@
 	border: 2px solid #cbd1d2;
 	border-radius: 50%;
 	color: #cbd1d2;
-	height: 2em;
-	font-size: .75em;
 	line-height: 2em;
 	margin: -1em;
 	position: absolute;

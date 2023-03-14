@@ -11,32 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :meetings %>
-    <%= form.number_field :meetings %>
+  <%= render 'journal_radio_group', form: form, field: :meetings %>
+  <%= render 'journal_radio_group', form: form, field: :current_task %>
+  <%= render 'journal_radio_group', form: form, field: :team_interaction %>
+  <%= render 'journal_radio_group', form: form, field: :humor %>
+
+  <br>  
+
+  <div class="form-group">
+    <%= form.label :comments, class: "form-label" %>
+    <%= form.text_area :comments, class: "form-control big-text-area" %>
   </div>
 
-  <div class="field">
-    <%= form.label :current_task %>
-    <%= form.number_field :current_task %>
-  </div>
-
-  <div class="field">
-    <%= form.label :team_interaction %>
-    <%= form.number_field :team_interaction %>
-  </div>
-
-  <div class="field">
-    <%= form.label :humor %>
-    <%= form.number_field :humor %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comments %>
-    <%= form.text_area :comments %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+  <div class="actions d-grid gap-2">
+    <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
   </div>
 <% end %>
+
