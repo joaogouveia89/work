@@ -48,36 +48,3 @@
 
 </div> <!-- end container -->
 </div>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Meetings</th>
-      <th>Current task</th>
-      <th>Team interaction</th>
-      <th>Humor</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @journals.each do |journal| %>
-      <tr>
-        <td><%= journal.meetings %></td>
-        <td><%= journal.current_task %></td>
-        <td><%= journal.team_interaction %></td>
-        <td><%= journal.humor %></td>
-        <td><%= journal.comments %></td>
-        <td><%= link_to 'Show', journal %></td>
-        <td><%= link_to 'Edit', edit_journal_path(journal) %></td>
-        <td><%= link_to 'Destroy', journal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Journal', new_journal_path %>
