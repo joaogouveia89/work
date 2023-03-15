@@ -1,6 +1,5 @@
-  <div class="form-group">
-    <%= form.label field %>
-    <br>
+  <div class="form-group p-2 bg-light border rounded-3 journal-cb-group-box">
+    <p><%= form.label field %></p>
     <div class="form-check form-check-inline">
       <%= form.radio_button field, 0, class: "form-check-input" %>
       <%= form.label :bad, class: "form-check-label" %>
@@ -15,3 +14,5 @@
     </div>    
     
   </div>
+
+  <br /> 

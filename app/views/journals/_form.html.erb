@@ -1,31 +1,35 @@
-<%= form_with(model: journal) do |form| %>
-  <% if journal.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(journal.errors.count, "error") %> prohibited this journal from being saved:</h2>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <%= form_with(model: journal) do |form| %>
+      <% if journal.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(journal.errors.count, "error") %> prohibited this journal from being saved:</h2>
 
-      <ul>
-        <% journal.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% journal.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <%= render 'journal_radio_group', form: form, field: :meetings %>
+        <%= render 'journal_radio_group', form: form, field: :current_task %>
+        <%= render 'journal_radio_group', form: form, field: :team_interaction %>
+        <%= render 'journal_radio_group', form: form, field: :humor %>
+      </div>
 
-  <%= render 'journal_radio_group', form: form, field: :meetings %>
-  <%= render 'journal_radio_group', form: form, field: :current_task %>
-  <%= render 'journal_radio_group', form: form, field: :team_interaction %>
-  <%= render 'journal_radio_group', form: form, field: :humor %>
+      <br>  
 
-  <br>  
+      <div class="form-group">
+        <%= form.label :comments, class: "form-label" %>
+        <%= form.text_area :comments, class: "form-control big-text-area" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :comments, class: "form-label" %>
-    <%= form.text_area :comments, class: "form-control big-text-area" %>
+      <br>
+      <div class="actions d-grid gap-2">
+        <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
-
-  <br>
-  <div class="actions d-grid gap-2">
-    <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
-  </div>
-<% end %>
-
+</div>
