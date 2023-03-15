@@ -24,4 +24,15 @@ module JournalsHelper
     def get_journal_from_day(day, journals)
         journals.select{ |j| j.updated_at.to_date == day.to_date }.first
     end
+
+    def get_journal_topic_icon scale
+        case scale
+        when 0
+            "fa-regular fa-face-smile fa-2xl"
+        when 1
+            "fa-regular fa-face-meh fa-2xl"
+        else
+            "fa-regular fa-face-frown fa-2xl"
+        end
+    end
 end
