@@ -1,6 +1,6 @@
 class JournalsController < ApplicationController
   before_action :set_journal, only: %i[ show edit update destroy ]
-  before_action :today_relatives, only: %i[ index ]
+  before_action :today_relatives, only: %i[ index edit ]
 
   # GET /journals or /journals.json
   def index
@@ -20,6 +20,11 @@ class JournalsController < ApplicationController
 
   # GET /journals/1/edit
   def edit
+    if Journal.find(params[:id].to_i).updated_at.to_date != @today.to_date
+      respond_to do |format|
+        format.html { redirect_to journals_url, notice: "Não se pode editar um journal diferente do dia de hoje" }
+      end
+    end
   end
 
   # POST /journals or /journals.json
