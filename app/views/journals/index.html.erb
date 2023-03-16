@@ -40,9 +40,7 @@
 
         <% @month_days.each do |week| %>
           <tr>
-            <% week.each do |day| %>
-              <%= render 'calendar_day', day: day %>
-            <% end %>
+            <%= render partial: 'calendar_day', collection: week, as: :day %>
           </tr>
         <% end %>
 
