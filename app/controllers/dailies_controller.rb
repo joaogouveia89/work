@@ -1,6 +1,7 @@
 class DailiesController < ApplicationController
   before_action :check_ticket
   before_action :set_daily, only: %i[ show edit update destroy ]
+  after_action :update_ticket, only: %i[ create update destroy ]
 
   # GET /dailies or /dailies.json
   def index
@@ -97,5 +98,9 @@ class DailiesController < ApplicationController
         end_reference = @ticket.open? ? DateTime.now.to_date : dailies.first.updated_at.to_date
         (end_reference -  dailies.last.updated_at.to_date).to_i
       end
+    end
+
+    def update_ticket
+      @daily.ticket.touch
     end
 end
