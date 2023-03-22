@@ -24,7 +24,7 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td class="vertical-middle"><%= link_to ticket.name, ticket_dailies_url(ticket) %></td>
-        <td class="text-center vertical-middle"><%= ticket.updated_at.strftime("%d/%m/%Y") %></td>
+        <td class="text-center vertical-middle"><%= (date_ty_simplifier ticket.updated_at).capitalize %></td>
         <td class="text-center vertical-middle">
           <%=  
             button_to( (ticket.open? ? 'Fechar' : 'Reabrir'),
