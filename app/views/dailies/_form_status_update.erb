@@ -1,0 +1,9 @@
+ <div class="radio-group">
+ 
+    <%= form_with(model: ticket) do |f| %>
+        <% Ticket.statuses.map(&:first).each do |status| %>
+            <%= f.radio_button :status, status, checked: (ticket.status == status), :onclick => "this.parentNode.submit();"  %>
+            <%= f.label ("status_" + status), status.titleize %>
+        <% end %>    
+    <% end %>
+</div>

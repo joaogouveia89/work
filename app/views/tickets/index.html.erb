@@ -15,8 +15,8 @@
   <thead>
     <tr>
       <th scope="col">Nome</th>
+      <th class="text-center" scope="col">Status</th>
       <th class="text-center" scope="col">Ultima atualização</th>
-      <th scope="col"></th>
     </tr>
   </thead>
 
@@ -24,16 +24,8 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td class="vertical-middle"><%= link_to ticket.name, ticket_dailies_url(ticket) %></td>
+        <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>
         <td class="text-center vertical-middle"><%= (date_ty_simplifier ticket.updated_at).capitalize %></td>
-        <td class="text-center vertical-middle">
-          <%=  
-            button_to( (ticket.open? ? 'Fechar' : 'Reabrir'),
-                      ticket_path(ticket.id),
-                      params: {:ticket => {:id => ticket.id, :status => (ticket.open? ? "closed" : "open")}},
-                      method: :put, data: { confirm: ("Tem certeza que quer " + (ticket.open? ? "fechar" : "reabrir") + " o ticket " + ticket.name) },
-                      class: "btn btn-outline-" + (ticket.open? ? 'danger' : 'primary') + " btn-sm")
-            %>
-        </td>
       </tr>
     <% end %>
   </tbody>

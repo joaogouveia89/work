@@ -6,13 +6,9 @@
 <% end %>
 
 <h1><%= @ticket.name %></h1>
-<%=  
-    button_to( (@ticket.open? ? 'Fechar' : 'Reabrir'),
-              ticket_path(@ticket.id),
-              params: {:ticket => {:id => @ticket.id, :status => (@ticket.open? ? "closed" : "open")}},
-              method: :put, data: { confirm: ("Tem certeza que quer " + (@ticket.open? ? "fechar" : "reabrir") + " o ticket " + @ticket.name) },
-              class: "btn btn-outline-" + (@ticket.open? ? 'danger' : 'primary') + " btn-sm")
-    %>
+
+<%= render 'form_status_update', ticket: @ticket %>
+ <br/>  
 
 <br>
 <% unless @dailies.size == 0 %>
@@ -24,7 +20,7 @@
 <p><strong> Duração: </strong><%= @past_days %> dias </p>
 <p><strong> Número de notas: </strong><%= @dailies.size %> </p>
 
-<br>
+<hr />
 
 <%= link_to 'Nova nota', new_ticket_daily_path, class: "btn btn-primary" %>
 <%= link_to 'Voltar', tickets_path, class: "btn btn-primary" %>

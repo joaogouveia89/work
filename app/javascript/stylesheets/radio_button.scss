@@ -1,0 +1,31 @@
+// modified from https://codepen.io/skeddles/pen/PbROLK
+
+$bg: $primary;
+$fg: lighten($bg,20%);
+$borderWidth: 1px;
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+label {
+  color: $primary;
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 20px;
+}
+
+input[type=radio]:checked + label{
+  color: $white;
+  background: $primary;
+}
+
+.radio-group {
+  border: solid $borderWidth $primary;
+  display: inline-block;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 12px;
+}
