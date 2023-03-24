@@ -37,7 +37,6 @@ class TicketsController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
-    debugger
     respond_to do |format|
       if @ticket.update(ticket_params)
         format.html { redirect_to tickets_url, notice: "Ticket was successfully updated." }
