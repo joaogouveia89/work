@@ -1,0 +1,19 @@
+<% dates = @dailies_map.keys %>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+        <% dates.each do |date| %>
+            <button class="nav-link <%= date == dates.first ? "active" : "" %>" id="nav-<%= date.to_s.gsub('-', '') %>-tab" data-bs-toggle="tab" data-bs-target="#nav-<%= date.to_s.gsub('-', '') %>" type="button" role="tab" aria-controls="nav-<%= date.to_s.gsub('-', '') %>" aria-selected="true"><%= date_ty_simplifier date %></button>
+        <% end %>
+    </div>
+</nav>
+
+<br>
+<div class="tab-content" id="nav-tabContent">
+    <% dates.each do |date| %>
+        <div class="tab-pane fade show <%= date == dates.first ? "active" : "" %>" id="nav-<%= date.to_s.gsub('-', '') %>" role="tabpanel" aria-labelledby="nav-<%= date.to_s.gsub('-', '') %>-tab">
+            <%= render 'daily_list_section', list: @dailies_map[date], has_actions: date == DateTime.now.to_date %>
+        </div>
+    <% end %>
+</div>

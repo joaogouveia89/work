@@ -25,26 +25,11 @@
 <%= link_to 'Nova nota', new_ticket_daily_path, class: "btn btn-primary" %>
 <%= link_to 'Voltar', tickets_path, class: "btn btn-primary" %>
 
-<hr />
+<br /><br />
 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-today-tab" data-bs-toggle="tab" data-bs-target="#nav-today" type="button" role="tab" aria-controls="nav-today" aria-selected="true">Hoje</button>
-    <button class="nav-link" id="nav-yesterday-tab" data-bs-toggle="tab" data-bs-target="#nav-yesterday" type="button" role="tab" aria-controls="nav-yesterday" aria-selected="false">Ontem</button>
-    <button class="nav-link" id="nav-others-tab" data-bs-toggle="tab" data-bs-target="#nav-others" type="button" role="tab" aria-controls="nav-others" aria-selected="false">Restantes</button>
-  </div>
-</nav>
-<br>
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-today" role="tabpanel" aria-labelledby="nav-today-tab">
-    <br>
-    <%= render 'daily_list_section', list: @from_today %>
-  </div>
-  <div class="tab-pane fade" id="nav-yesterday" role="tabpanel" aria-labelledby="nav-yesterday-tab">
-    <%= render 'daily_list_section', list: @from_yesterday %>
-  </div>
-  <div class="tab-pane fade" id="nav-others" role="tabpanel" aria-labelledby="nav-others-tab">
-    <%= render 'daily_list_section', list: @rest_of_dailies %>
-  </div>
-</div>
+<% if @dailies.empty? %>
+  <h4>Sem registros</h4>
+<% else %>
+  <%= render 'dailies_nav_panel' %>
+<% end %>
 

@@ -7,15 +7,8 @@ class DailiesController < ApplicationController
   def index
     @today = DateTime.now.to_date
     @dailies = Daily.where(ticket_id: @ticket.id).order(updated_at: :desc)
-    @from_today = @dailies.filter do |daily|
-      daily.updated_at.to_date == @today
-    end
 
-    @from_yesterday = @dailies.filter do |daily|
-      daily.updated_at.to_date == (@today - 1)
-    end
-
-    @rest_of_dailies = @dailies.to_a - @from_today - @from_yesterday
+    @dailies_map = @dailies.group_by { |d| d.updated_at.to_date } 
 
     @past_days = calculate_past_days @dailies
 
