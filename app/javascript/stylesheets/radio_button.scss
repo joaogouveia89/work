@@ -4,25 +4,25 @@ $bg: $primary;
 $fg: lighten($bg,20%);
 $borderWidth: 1px;
 
-input[type=radio] {
+.horizontal-radio-button{
   position: absolute;
   visibility: hidden;
   display: none;
 }
 
-label {
+.horizontal-radio-button-label {
   color: $primary;
   display: inline-block;
   cursor: pointer;
   padding: 5px 20px;
 }
 
-input[type=radio]:checked + label{
+.horizontal-radio-button:checked + .horizontal-radio-button-label{
   color: $white;
   background: $primary;
 }
 
-.radio-group {
+.horizontal-radio-group {
   border: solid $borderWidth $primary;
   display: inline-block;
   border-radius: 10px;
