@@ -87,7 +87,7 @@ class JournalsController < ApplicationController
        month_days = ((@month_first_day)..( @month_last_day)).to_a
 
        last_month_days = (((@month_first_day - (@month_first_day.wday - 1))..@month_first_day).to_a)[0...-1]
-       next_month_days = (( @month_last_day..( @month_last_day + (6 -  @month_last_day.wday))).to_a)
+       next_month_days = (( (@month_last_day + 1)..( @month_last_day + (7 -  @month_last_day.wday))).to_a)
 
        calendar_days = last_month_days + month_days + next_month_days
 
