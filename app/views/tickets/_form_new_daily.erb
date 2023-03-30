@@ -1,0 +1,24 @@
+<%= form_with(model: ticket_dailies, url: [@ticket, ticket_dailies]) do |form| %>
+  <% if ticket_dailies.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily.errors.count, "error") %> prohibited this daily from being saved:</h2>
+
+      <ul>
+        <% @daily.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :notes, class: "form-label" %>
+    <%= form.text_area :notes, class: "form-control" %>
+  </div>
+
+  <br>
+
+  <div class="actions d-grid gap-2">
+    <%= form.submit 'Salvar', :class => 'btn btn-primary' %>
+  </div>
+<% end %>

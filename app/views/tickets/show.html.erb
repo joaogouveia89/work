@@ -11,7 +11,14 @@
 
 <br /><br />
 
-<h3>Dailies <%= link_to "Show All", ticket_dailies_url(@ticket), class: "btn btn-primary btn-sm" %></h3>
+<h3>Dailies 
+  <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseNewDaily" role="button" aria-expanded="false" aria-controls="collapseNewDaily">Add</a>
+  <%= link_to "Show All", ticket_dailies_url(@ticket), class: "btn btn-primary btn-sm" %>
+</h3>
+
+<div class="collapse" id="collapseNewDaily">
+  <%= render 'form_new_daily', ticket_dailies: @daily %>
+</div> <br/>
 
 <table class="table">
   <thead>
