@@ -8,6 +8,7 @@ class TicketsController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    @last_dailies = Daily.order(:status, "updated_at DESC").limit(3)
   end
 
   # GET /tasks/new

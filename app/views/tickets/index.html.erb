@@ -23,7 +23,7 @@
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
-        <td class="vertical-middle"><%= link_to ticket.name, ticket_dailies_url(ticket) %></td>
+        <td class="vertical-middle"><%= link_to ticket.name, ticket %></td>
         <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>
         <td class="text-center vertical-middle"><%= (date_ty_simplifier ticket.updated_at).capitalize %></td>
       </tr>

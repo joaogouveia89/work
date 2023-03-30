@@ -1,14 +1,33 @@
-<p id="notice"><%= notice %></p>
+<h1 class="text-center"><%= @ticket.name %></h1>
+<% unless notice == nil %>
+  <div class="alert alert-primary alert-dismissible fade show" style="margin-top: 16px; margin-bottom: 16px;"role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @ticket.name %>
-</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @ticket.status %>
-</p>
+<%= render 'form_status_update' %>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<br /><br />
+
+<h3>Dailies <%= link_to "Show All", ticket_dailies_url(@ticket), class: "btn btn-primary btn-sm" %></h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">Date/Time</th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @last_dailies.each do |daily| %>
+      <tr>
+        <td class="text-center"> 
+          <%= daily.updated_at.strftime("%d/%m - %H:%M") %></td>
+        <td><%= link_to daily.notes_truncated, ticket_daily_url(@ticket.id, daily) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
