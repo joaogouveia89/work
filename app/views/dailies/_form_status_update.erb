@@ -1,8 +1,0 @@
- <div class="horizontal-radio-group">
-    <%= form_with(model: ticket) do |f| %>
-        <% Ticket.statuses.map(&:first).each do |status| %>
-            <%= f.radio_button :status, status, checked: (ticket.status == status), :onclick => "this.parentNode.submit();", :class => "horizontal-radio-button"  %>
-            <%= f.label ("status_" + status), status.titleize, :class=>"horizontal-radio-button-label" %>
-        <% end %>    
-    <% end %>
-</div>

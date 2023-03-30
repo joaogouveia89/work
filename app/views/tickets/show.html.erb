@@ -1,4 +1,5 @@
 <h1 class="text-center"><%= @ticket.name %></h1>
+<h3 class="text-center"><%= @ticket.past_days %> dias </h3>
 <% unless notice == nil %>
   <div class="alert alert-primary alert-dismissible fade show" style="margin-top: 16px; margin-bottom: 16px;"role="alert">
     <%= notice %>

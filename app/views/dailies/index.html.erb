@@ -5,10 +5,7 @@
   </div>
 <% end %>
 
-<h1><%= @ticket.name %></h1>
-
-<%= render 'form_status_update', ticket: @ticket %>
- <br/>  
+<h1 class="text-center">Dailies - <%= @ticket.name %></h1>
 
 <br>
 <% unless @dailies.size == 0 %>
@@ -17,13 +14,13 @@
 <% if @ticket.closed? %>
   <p><strong> Última nota: </strong><%= @dailies.first.updated_at.strftime("%d/%m/%Y") %> </p>
 <% end %>
-<p><strong> Duração: </strong><%= @past_days %> dias </p>
+<p><strong> Duração do ticket: </strong><%= @ticket.past_days %> dias </p>
 <p><strong> Número de notas: </strong><%= @dailies.size %> </p>
 
 <hr />
 
-<%= link_to 'Nova nota', new_ticket_daily_path, class: "btn btn-primary" %>
-<%= link_to 'Voltar', :back, class: "btn btn-primary" %>
+<%= link_to 'Nova nota', new_ticket_daily_path, class: "btn btn-primary btn-sm" %>
+<%= link_to 'Voltar', :back, class: "btn btn-primary btn-sm" %>
 
 <br /><br />
 
