@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ticket:</strong>
+  <%= @link.ticket %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @link.label %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @link.url %>
+</p>
+
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>

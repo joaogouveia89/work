@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :journals
   resources :tickets do
     resources :dailies
+    resources :links
   end
 
   root 'tickets#index'

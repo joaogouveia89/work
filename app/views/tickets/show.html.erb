@@ -12,6 +12,27 @@
 
 <br /><br />
 
+<h3>Links 
+  <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseNewLink" role="button" aria-expanded="false" aria-controls="collapseNewLink">Add</a>
+  <%= link_to "Show All", ticket_links_url(@ticket), class: "btn btn-primary btn-sm" %>
+</h3>
+
+<div class="collapse" id="collapseNewLink">
+  <%= render 'form_new_link', link: @link %>
+</div> <br/>
+
+<% unless @links.size == 0 %>
+  <br />
+  <ul class="list-group list-group-horizontal">
+    <% @links.each do |link| %>
+      <li class="list-group-item"><%= link_to link.label, link.url, target: "_blank" %> </li>
+    <% end %>
+  </ul>
+<% end %>
+</ul>
+
+<br /><br />
+
 <h3>Dailies 
   <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseNewDaily" role="button" aria-expanded="false" aria-controls="collapseNewDaily">Add</a>
   <%= link_to "Show All", ticket_dailies_url(@ticket), class: "btn btn-primary btn-sm" %>

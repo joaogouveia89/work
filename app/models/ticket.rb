@@ -1,5 +1,6 @@
 class Ticket < ApplicationRecord
     has_many :dailies
+    has_many :links
     enum status: [ :open, :pr_opened, :closed ]
 
     def status_title

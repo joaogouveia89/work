@@ -1,0 +1,37 @@
+<% unless notice == nil %>
+  <div class="alert alert-primary alert-dismissible fade show" style="margin-top: 16px; margin-bottom: 16px;"role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+
+<h1 class="text-center">Links - <%= link_to @ticket.name, @ticket %></h1>
+
+<br />
+<%= render 'form', link: @link %>
+<br />
+
+<% unless @links.size == 0 %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Label</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @links.each do |link| %>
+        <tr>
+          <td class="vertical-middle"><%= link.label %></td>
+          <td><%= link_to 'Edit', edit_ticket_link_path(@ticket, link), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Destroy', ticket_link_url(@ticket, link), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
+<br>
