@@ -4,6 +4,12 @@ class TicketsController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     @tickets = Ticket.order(:status, "updated_at DESC")
+    @today = today
+    @month_tickets = @tickets.filter do |ticket|
+      ticket.updated_at.month == @today.month
+    end
+
+    @tickets -= @month_tickets 
   end
 
   # GET /tasks/1 or /tasks/1.json

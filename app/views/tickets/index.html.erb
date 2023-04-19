@@ -11,17 +11,19 @@
 <%= link_to 'Novo ticket', new_ticket_path, class: "btn btn-primary" %>
 <br><br>
 
+<h3>From <%= @today.strftime(("%B")) %></h3>
+
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Nome</th>
       <th class="text-center" scope="col">Status</th>
-      <th class="text-center" scope="col">Ultima atualização</th>
+      <th class="text-center" scope="col">Last update</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @tickets.each do |ticket| %>
+    <% @month_tickets.each do |ticket| %>
       <tr>
         <td class="vertical-middle"><%= link_to ticket.name, ticket %></td>
         <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>
@@ -30,3 +32,34 @@
     <% end %>
   </tbody>
 </table>
+
+<br/>
+
+<h3>
+  Other tickets &nbsp;
+  <a data-bs-toggle="collapse" href="#otherticketscollapse" role="button" aria-expanded="false" aria-controls="otherticketscollapse">
+    <i class="fa-solid fa-plus"></i>
+  </a>
+</h3> 
+
+<div class="collapse multi-collapse" id="otherticketscollapse">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th class="text-center" scope="col">Status</th>
+        <th class="text-center" scope="col">Last update</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td class="vertical-middle"><%= link_to ticket.name, ticket %></td>
+          <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>
+          <td class="text-center vertical-middle"><%= (date_ty_simplifier ticket.updated_at).capitalize %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
