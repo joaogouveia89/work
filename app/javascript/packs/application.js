@@ -15,3 +15,20 @@ import "../stylesheets/application"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.copyToClipboard = function copyToClipboard(value, iconId, defaultIconClass){
+    navigator.clipboard.writeText(value);
+    const iconEl = $( "#" + iconId);
+    iconEl.fadeOut( "slow", function() {
+        iconEl.removeClass(defaultIconClass);
+        iconEl.addClass("fa-circle-check");
+        iconEl.fadeIn( "slow", function() {
+            iconEl.delay(800);
+            iconEl.fadeOut( "slow", function() {
+                iconEl.removeClass("fa-circle-check");
+                iconEl.addClass(defaultIconClass);
+                iconEl.fadeIn( "slow");
+            });
+        });
+    });
+}
