@@ -1,6 +1,6 @@
 class JournalsController < ApplicationController
   before_action :set_journal, only: %i[ show edit update destroy ]
-  before_action :today_relatives, only: %i[ index edit ]
+  before_action :reference_dates, only: %i[ index edit ]
 
   # GET /journals or /journals.json
   def index
@@ -20,7 +20,7 @@ class JournalsController < ApplicationController
 
   # GET /journals/1/edit
   def edit
-    if Journal.find(params[:id].to_i).updated_at.to_date != @today.to_date
+    if Journal.find(params[:id].to_i).updated_at.to_date != @reference_date.to_date
       respond_to do |format|
         format.html { redirect_to journals_url, notice: "Não se pode editar um journal diferente do dia de hoje" }
       end
@@ -66,6 +66,9 @@ class JournalsController < ApplicationController
   end
 
   private
+    IS_MONTH = /^(0?[1-9]|1[012])$/
+    IS_INTEGER = /\A\d+\z/
+
     # Use callbacks to share common setup or constraints between actions.
     def set_journal
       @journal = Journal.find(params[:id])
@@ -76,10 +79,14 @@ class JournalsController < ApplicationController
       params.require(:journal).permit(:meetings, :current_task, :team_interaction, :humor, :comments)
     end
 
-    def today_relatives
+    def reference_dates
       @today = Date.today
-      @month_first_day = @today.beginning_of_month
-      @month_last_day = @today.end_of_month
+      @reference_date = (!valid_param_month || !valid_param_year || (params[:m].to_i == @today.month && params[:y].to_i == @today.year)) ? @today : Date.new(params[:y].to_i, params[:m].to_i, 1)
+      @month_first_day = @reference_date.beginning_of_month
+      @month_last_day = @reference_date.end_of_month
+      
+      @previous_month = (@month_first_day - 1)
+      @next_month = (@month_last_day + 1)
     end
 
     def get_calendar_days
@@ -92,5 +99,13 @@ class JournalsController < ApplicationController
        calendar_days = last_month_days + month_days + next_month_days
 
        (calendar_days.each_slice(7)).to_a
+    end
+
+    def valid_param_month
+      (params[:m] != nil && params[:m] =~ IS_MONTH)
+    end
+
+    def valid_param_year
+      (params[:y] != nil && params[:y] =~ IS_INTEGER && params[:y].size == 4)
     end
 end

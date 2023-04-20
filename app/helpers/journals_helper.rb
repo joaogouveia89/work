@@ -1,12 +1,12 @@
 module JournalsHelper
 
-    def calendar_class_chain(day, today, journals)
+    def calendar_class_chain(day, reference_date, today, journals)
         classes = ""
         event_days = journals.map{|j| j.updated_at.to_date }
         
-        if today.month == day.month - 1
+        if reference_date.month == day.month - 1
             classes += " next-month"
-        elsif today.month == day.month + 1
+        elsif reference_date.month == day.month + 1
             classes += " prev-month"
         else
             if event_days.include?(day.to_date) 
@@ -15,7 +15,7 @@ module JournalsHelper
             end
         end
 
-        if day == today
+        if day == reference_date && reference_date == today
             classes += " current-day"
         end
         classes

@@ -1,4 +1,4 @@
-<% classes = calendar_class_chain(day, @today, @journals) %>
+<% classes = calendar_class_chain(day, @reference_date, @today, @journals) %>
 
 <% if classes.size == 0 %>
     <td><%= day.day %></td>
@@ -10,7 +10,7 @@
             <% else %>
                 <%= link_to (day.day.to_s), edit_journal_path(@today_journal) %>
             <% end %>
-        <% elsif day.month == @today.month %>
+        <% elsif day.month == @reference_date.month %>
             <% journal_from_day = get_journal_from_day(day, @journals)%>
             <%= journal_from_day == nil ? day.day.to_s : link_to( (day.day.to_s), journal_from_day)  %>
         <% else %>

@@ -11,10 +11,10 @@
 
     <header>
       <!-- Month name -->
-      <h2><%= @today.strftime("%B").capitalize %></h2>
+      <h2><%= @reference_date.strftime("%B").capitalize %></h2>
 
-      <a class="btn-prev fa-solid fa-angle-left" href="#"></a>
-      <a class="btn-next fa-solid fa-angle-right" href="#"></a>
+      <%= link_to "", journals_path(:m => @previous_month.month, :y => @previous_month.year), :class  => "btn-prev fa-solid fa-angle-left" %>
+      <%= link_to "", journals_path(:m => @next_month.month, :y => @next_month.year), :class  => "btn-next fa-solid fa-angle-right" %>
 
     </header>
 
