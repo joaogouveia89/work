@@ -4,7 +4,7 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @links = Link.all
+    @links = Link.where(ticket_id: params[:ticket_id])
     @link = Link.new
   end
 
