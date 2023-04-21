@@ -4,6 +4,10 @@ module JournalsHelper
         classes = ""
         event_days = journals.map{|j| j.updated_at.to_date }
         
+        if day.wday == 0 || day.wday == 6
+            classes += " weekend-day"
+        end
+
         if reference_date.month == day.month - 1
             classes += " next-month"
         elsif reference_date.month == day.month + 1
@@ -13,6 +17,7 @@ module JournalsHelper
                 # to simplify just show journals from this month
                 classes += " event"
             end
+            
         end
 
         if day == reference_date && reference_date == today
