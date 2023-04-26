@@ -16,7 +16,7 @@ class Ticket < ApplicationRecord
         if dailies.size == 0
           0
         else
-          end_reference = self.open? ? DateTime.now.to_date : dailies.first.to_date
+          end_reference = self.closed? ? dailies.first.to_date : DateTime.now.to_date
           (end_reference -  dailies.last.to_date).to_i
         end
       end
