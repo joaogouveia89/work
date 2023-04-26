@@ -1,9 +1,12 @@
+$table-cell-padding-y: .9rem;
+
+@import "./workappcolors.scss";
 @import "~bootstrap/scss/bootstrap";
 @import "./calendar";
 @import "./radio_button";
 
 .big-text-area{
-    height: 30em;
+    height: 20em;
 }
 
 .vertical-middle{

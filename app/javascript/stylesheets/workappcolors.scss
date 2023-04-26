@@ -1,0 +1,28 @@
+$dark-1000: #181a2f;
+$dark-800: #282b4d;
+$dark-600: #373c6c;
+$dark-400: #474d8a;
+$dark-200: #565da9;
+$dark-100: #7c81bc;
+
+
+$light: #d2d6dc;
+$dark: $dark-1000;
+$primary: #0031ef;
+$secondary: #334c56;
+$info:  #c93d4b;
+$success: #009757;
+$warning: #ddc800; 
+$danger: #eb1c00;
+
+
+$theme-colors: (
+    "light":      $light,
+    "dark":       $dark,
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "info":       $info,
+    "success":    $success,
+    "warning":    $warning,
+    "danger":     $danger,
+);

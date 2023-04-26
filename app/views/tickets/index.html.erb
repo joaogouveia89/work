@@ -5,6 +5,7 @@
   </div>
 <% end %>
 
+<br/>
 <h1>Tickets</h1>
 <hr>
 
@@ -13,7 +14,7 @@
 
 <h3>From <%= @today.strftime(("%B")) %></h3>
 
-<table class="table">
+<table class="table table-striped bg-white">
   <thead>
     <tr>
       <th scope="col">Nome</th>
@@ -43,7 +44,7 @@
 </h3> 
 
 <div class="collapse multi-collapse" id="otherticketscollapse">
-  <table class="table">
+  <table class="table table-striped bg-white">
     <thead>
       <tr>
         <th scope="col">Nome</th>
