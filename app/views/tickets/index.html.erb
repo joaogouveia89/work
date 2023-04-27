@@ -12,7 +12,7 @@
 <%= link_to 'Novo ticket', new_ticket_path, class: "btn btn-primary" %>
 <br><br>
 
-<h3>From <%= @today.strftime(("%B")) %></h3>
+<h3>Worked in the last 15 days</h3>
 
 <table class="table table-striped bg-white">
   <thead>
@@ -24,7 +24,7 @@
   </thead>
 
   <tbody>
-    <% @month_tickets.each do |ticket| %>
+    <% @last_15_days_tickets.each do |ticket| %>
       <tr>
         <td class="vertical-middle"><%= link_to ticket.name, ticket %></td>
         <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>

@@ -5,11 +5,17 @@ class TicketsController < ApplicationController
   def index
     @tickets = Ticket.order(:status, "updated_at DESC")
     @today = today
-    @month_tickets = @tickets.filter do |ticket|
-      ticket.updated_at.month == @today.month
+    fifteen_days_ago = (@today - 15.days).to_date
+
+    @last_15_days_tickets = @tickets.filter do |ticket|
+      ticket.updated_at.to_date >= fifteen_days_ago
     end
 
-    @tickets -= @month_tickets 
+    @tickets -= @last_15_days_tickets
+
+    unless @tickets.find{ |t| !t.closed? }.nil?
+      flash[:notice] = "There's a non closed ticket for more than 15 days"
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
