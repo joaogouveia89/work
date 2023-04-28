@@ -20,10 +20,13 @@
           <div class="navbar-nav">
             <%= link_to 'Tickets', tickets_path, class: (current_page?(tickets_path) ? "nav-link active" : "nav-link") %>
             <%= link_to 'Journal', journals_path, class: (current_page?(journals_path) ? "nav-link active" : "nav-link") %>
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#lastupdatesmodal">Last updates</a>
           </div>
         </div>
       </div>
     </nav>
+
+    <%= render '/layouts/last_updates_modal' %>
     <div class="container">
       <%= yield %>
     </div>
