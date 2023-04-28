@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :last_updates_info , only: %i[ index ]
+    before_action :last_updates_info
 
     def today
         Time.now
