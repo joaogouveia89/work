@@ -28,7 +28,7 @@
       <tr>
         <td class="vertical-middle"><%= link_to ticket.name, ticket %></td>
         <td class="text-center vertical-middle"><%= bs_status_badge ticket %> </td>
-        <td class="text-center vertical-middle"><%= (date_ty_simplifier ticket.updated_at).capitalize %></td>
+        <td class="text-center vertical-middle"><%= diff_in_days(ticket.updated_at) %> days ago</td>
       </tr>
     <% end %>
   </tbody>

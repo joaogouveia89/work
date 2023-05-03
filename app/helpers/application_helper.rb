@@ -10,4 +10,8 @@ module ApplicationHelper
             date.strftime("%d/%m/%Y")
         end
     end
+
+    def diff_in_days date1
+        (Time.now.to_date - date1.to_date).to_i
+    end
 end
