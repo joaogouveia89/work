@@ -14,6 +14,7 @@
 
       <%= link_to "", journals_path(:m => @previous_month.month, :y => @previous_month.year), :class  => "btn-prev fa-solid fa-angle-left" %>
       <%= link_to "", journals_path(:m => @next_month.month, :y => @next_month.year), :class  => "btn-next fa-solid fa-angle-right" %>
+      <p> <%= @business_days %> dias uteis</p>
 
     </header>
 
@@ -35,7 +36,7 @@
 
       <tbody>
 
-        <% @month_days.each do |week| %>
+        <% @calendar_days.each do |week| %>
           <tr>
             <%= render partial: 'calendar_day', collection: week, as: :day %>
           </tr>

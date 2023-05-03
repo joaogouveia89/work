@@ -12,7 +12,7 @@
 <%= link_to 'Novo ticket', new_ticket_path, class: "btn btn-primary" %>
 <br><br>
 
-<h3>Worked in the last 15 days</h3>
+<h3>Worked in the last 15 days - <span class="badge bg-primary"><%= @last_15_days_tickets.size %> tickets</span></h3>
 
 <table class="table table-striped bg-white">
   <thead>
@@ -37,7 +37,7 @@
 <br/>
 
 <h3>
-  Other tickets &nbsp;
+  Other tickets <span class="badge bg-primary"><%= @tickets.size %> tickets</span> &nbsp;
   <a data-bs-toggle="collapse" href="#otherticketscollapse" role="button" aria-expanded="false" aria-controls="otherticketscollapse">
     <i class="fa-solid fa-plus"></i>
   </a>

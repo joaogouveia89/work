@@ -6,7 +6,9 @@ class JournalsController < ApplicationController
   def index
     @journals = Journal.where(updated_at: [@month_first_day..(@month_last_day)])
     @today_journal = @journals.select{ |j| j.updated_at.to_date == @today.to_date }.first
-    @month_days = get_calendar_days
+    @calendar_days = get_calendar_days
+
+    @business_days = @month_days.filter{ |d| d.wday > 0 && d.wday < 6 }.size
   end
 
   # GET /journals/1 or /journals/1.json
@@ -84,19 +86,18 @@ class JournalsController < ApplicationController
       @reference_date = (!valid_param_month || !valid_param_year || (params[:m].to_i == @today.month && params[:y].to_i == @today.year)) ? @today : Date.new(params[:y].to_i, params[:m].to_i, 1)
       @month_first_day = @reference_date.beginning_of_month
       @month_last_day = @reference_date.end_of_month
+
+      @month_days = ((@month_first_day)..( @month_last_day)).to_a
       
       @previous_month = (@month_first_day - 1)
       @next_month = (@month_last_day + 1)
     end
 
     def get_calendar_days
-       
-       month_days = ((@month_first_day)..( @month_last_day)).to_a
-
        last_month_days = @month_first_day.wday == 0 ? [] : (((@month_first_day - (@month_first_day.wday))..@month_first_day).to_a)[0...-1]
        next_month_days = @month_last_day.wday == 6 ? [] : (( (@month_last_day + 1)..( @month_last_day + (6 -  @month_last_day.wday))).to_a)
 
-       calendar_days = last_month_days + month_days + next_month_days
+       calendar_days = last_month_days + @month_days + next_month_days
 
        (calendar_days.each_slice(7)).to_a
     end
