@@ -1,0 +1,62 @@
+<br/>
+<h1>Dashboard</h1>
+<hr />
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Open tickets</h5>
+                <hr />
+                <ul>
+                    <% @open_tickets.each do |ticket| %>
+                        <li><%= link_to ticket.name, ticket %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">About yesterday</h5>
+                <hr />
+                <ul>
+                    <li><%= @from_yesterday[:num_dailies] %> dailies</li>
+                    <li><%= @from_yesterday[:num_worked_tasks] %> worked tickets</li>
+                    <li>Journal <%= true_false_icon @from_yesterday[:has_journal] %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><%= @last_month.strftime("%B") %> vs <%= @today.strftime("%B") %></h3>
+                <hr />
+                <h4> Closed tickets </h4>
+                <div class="d-flex mb-2">
+                    <div class="p-2"><%= @last_month.strftime("%B") %></div>
+                    <div class="ms-auto p-2"><%= @today.strftime("%B") %></div>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar" role="progressbar" style="width: <%= @current_month_vs_las_month[:closed_tickets][:last_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:closed_tickets][:last_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:closed_tickets][:last_month] %></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @current_month_vs_las_month[:closed_tickets][:current_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:closed_tickets][:current_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:closed_tickets][:current_month] %></div>
+                </div>
+                <br />
+                <h4> Journals </h4>
+                <div class="d-flex mb-2">
+                    <div class="p-2"><%= @last_month.strftime("%B") %></div>
+                    <div class="ms-auto p-2"><%= @today.strftime("%B") %></div>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar" role="progressbar" style="width: <%= @current_month_vs_las_month[:journals][:last_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:journals][:last_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:journals][:last_month] %></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @current_month_vs_las_month[:journals][:current_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:journals][:current_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:journals][:current_month] %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

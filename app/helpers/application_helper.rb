@@ -14,4 +14,8 @@ module ApplicationHelper
     def diff_in_days date1
         (Time.now.to_date - date1.to_date).to_i
     end
+
+    def true_false_icon flag
+        flag ? sanitize('<i class="fa-solid fa-check"></i>') : sanitize('<i class="fa-solid fa-xmark"></i>')
+    end
 end
