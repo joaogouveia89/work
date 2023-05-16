@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
         }
 
         closed_tickets_map = Ticket.where(status: Ticket.statuses[:closed], updated_at: (@last_month.beginning_of_month)...@today).group_by { |d| d.updated_at.month }
-        journals_map = Journal.where(updated_at: (@last_month.beginning_of_month)...@today).group_by { |d| d.updated_at.month }
+        journals_map = Journal.where(updated_at: (@last_month.beginning_of_month)...@today.end_of_day).group_by { |d| d.updated_at.month }
         
         @current_month_vs_las_month = {
             :closed_tickets => {
