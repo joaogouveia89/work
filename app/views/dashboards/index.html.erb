@@ -35,27 +35,204 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title"><%= @last_month.strftime("%B") %> vs <%= @today.strftime("%B") %></h3>
-                <hr />
-                <h4> Closed tickets </h4>
-                <div class="d-flex mb-2">
-                    <div class="p-2"><%= @last_month.strftime("%B") %></div>
-                    <div class="ms-auto p-2"><%= @today.strftime("%B") %></div>
-                </div>
-                <div class="progress" style="height: 20px;">
-                    <div class="progress-bar" role="progressbar" style="width: <%= @current_month_vs_las_month[:closed_tickets][:last_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:closed_tickets][:last_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:closed_tickets][:last_month] %></div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @current_month_vs_las_month[:closed_tickets][:current_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:closed_tickets][:current_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:closed_tickets][:current_month] %></div>
-                </div>
-                <br />
-                <h4> Journals </h4>
-                <div class="d-flex mb-2">
-                    <div class="p-2"><%= @last_month.strftime("%B") %></div>
-                    <div class="ms-auto p-2"><%= @today.strftime("%B") %></div>
-                </div>
-                <div class="progress" style="height: 20px;">
-                    <div class="progress-bar" role="progressbar" style="width: <%= @current_month_vs_las_month[:journals][:last_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:journals][:last_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:journals][:last_month] %></div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @current_month_vs_las_month[:journals][:current_month_perc] %>%" aria-valuenow="<%= @current_month_vs_las_month[:journals][:current_month_perc] %>" aria-valuemin="0" aria-valuemax="100"><%= @current_month_vs_las_month[:journals][:current_month] %></div>
-                </div>
+                <h3 class="text-center">General</h3>
+                <hr/>
+                <table class="table bg-white table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col" colspan="1"></th>
+                        <th scope="col"><%= @last_month.strftime("%B") %></th>
+                        <th scope="col"><%= @today.strftime("%B") %></th>
+                        <th scope="col" colspan="1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" colspan="1" class="text-center">Closed Tickets</th>
+                            <td><%= @current_month_vs_las_month[:closed_tickets][:last_month] %></td>
+                            <td><%= @current_month_vs_las_month[:closed_tickets][:current_month] %></td>
+                            <td style="color: <%= @current_month_vs_las_month[:closed_tickets][:perc_diff] >= 0 ? "green" : "red" %>;">
+                                <% if @current_month_vs_las_month[:closed_tickets][:perc_diff]  > 0 %>
+                                    &gt;
+                                <% elsif @current_month_vs_las_month[:closed_tickets][:perc_diff]  < 0 %>
+                                    &lt;
+                                <% end %>
+                                <%= @current_month_vs_las_month[:closed_tickets][:perc_diff] %>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" colspan="1" class="text-center">Journals</th>
+                            <td><%= @current_month_vs_las_month[:journals][:last_month].size %></td>
+                            <td><%= @current_month_vs_las_month[:journals][:current_month].size %></td>
+                            <td style="color: <%= @current_month_vs_las_month[:journals][:perc_diff] >= 0 ? "green" : "red" %>;">
+                                <% if @current_month_vs_las_month[:journals][:perc_diff] > 0 %>
+                                    &gt;
+                                <% elsif @current_month_vs_las_month[:journals][:perc_diff] < 0 %>
+                                    &lt;
+                                <% end %>
+                                <%= @current_month_vs_las_month[:journals][:perc_diff].abs %>%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                 <h3 class="text-center">Journal</h3>
+                <hr/>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col" colspan="1"></th>
+                        <th scope="col" class="text-center"><%= @last_month.strftime("%B") %></th>
+                        <th scope="col" colspan="1"></th>
+                        <th scope="col" class="text-center"><%= @today.strftime("%B") %></th>
+                        </tr>
+                    </thead>
+                     <tr>
+                        <th>Meetings</th>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bg-light"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Current Task</th>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bg-light"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>Team Interaction</th>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bg-light"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Humor</th>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bg-light"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-frown fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[0] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-meh fa-lg"></i>
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[1] %> %</div>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
+                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[2] %> %</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

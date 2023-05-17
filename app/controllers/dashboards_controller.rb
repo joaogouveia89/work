@@ -1,3 +1,5 @@
+require 'collections/journals_report'
+
 class DashboardsController < ApplicationController
     def index
         @today = Date.today 
@@ -16,6 +18,7 @@ class DashboardsController < ApplicationController
         closed_tickets_map = Ticket.where(status: Ticket.statuses[:closed], updated_at: (@last_month.beginning_of_month)...@today).group_by { |d| d.updated_at.month }
         journals_map = Journal.where(updated_at: (@last_month.beginning_of_month)...@today.end_of_day).group_by { |d| d.updated_at.month }
         
+
         @current_month_vs_las_month = {
             :closed_tickets => {
                 :total => closed_tickets_map[@last_month.month].size + closed_tickets_map[@today.month].size,
@@ -24,16 +27,13 @@ class DashboardsController < ApplicationController
             },
             :journals =>{
                 :total => journals_map[@last_month.month].size + journals_map[@today.month].size,
-                :last_month => journals_map[@last_month.month].size,
-                :current_month => journals_map[@today.month].size
+                :last_month => JournalsReport.new(journals_map[@last_month.month]),
+                :current_month => JournalsReport.new(journals_map[@today.month]) 
             }
         }
         
-        @current_month_vs_las_month[:closed_tickets][:last_month_perc] = percentage_calculation(@current_month_vs_las_month[:closed_tickets][:last_month], @current_month_vs_las_month[:closed_tickets][:total])
-        @current_month_vs_las_month[:closed_tickets][:current_month_perc] = 100 - @current_month_vs_las_month[:closed_tickets][:last_month_perc]
-
-        @current_month_vs_las_month[:journals][:last_month_perc] = percentage_calculation(@current_month_vs_las_month[:journals][:last_month], @current_month_vs_las_month[:journals][:total])
-        @current_month_vs_las_month[:journals][:current_month_perc] = 100 - @current_month_vs_las_month[:journals][:last_month_perc]
+        @current_month_vs_las_month[:closed_tickets][:perc_diff] = percentage_calculation(@current_month_vs_las_month[:closed_tickets][:current_month], @current_month_vs_las_month[:closed_tickets][:last_month]) - 100
+        @current_month_vs_las_month[:journals][:perc_diff] = percentage_calculation(@current_month_vs_las_month[:journals][:current_month].size, @current_month_vs_las_month[:journals][:last_month].size)  - 100
     end
 
     private
