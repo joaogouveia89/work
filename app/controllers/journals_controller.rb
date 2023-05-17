@@ -39,8 +39,8 @@ class JournalsController < ApplicationController
 
     respond_to do |format|
       if @journal.save
-        format.html { redirect_to journal_url(@journal), notice: "Journal was successfully created." }
-        format.json { render :show, status: :created, location: @journal }
+        format.html { redirect_to journals_path, notice: "Journal was successfully created." }
+        format.json { render :index, status: :created, location: @journal }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @journal.errors, status: :unprocessable_entity }
@@ -52,8 +52,8 @@ class JournalsController < ApplicationController
   def update
     respond_to do |format|
       if @journal.update(journal_params)
-        format.html { redirect_to journal_url(@journal), notice: "Journal was successfully updated." }
-        format.json { render :show, status: :ok, location: @journal }
+        format.html { redirect_to journals_path, notice: "Journal was successfully updated." }
+        format.json { render :index, status: :ok, location: @journal }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @journal.errors, status: :unprocessable_entity }
