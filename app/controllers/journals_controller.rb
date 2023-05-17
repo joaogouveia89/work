@@ -9,10 +9,14 @@ class JournalsController < ApplicationController
     @calendar_days = get_calendar_days
 
     @business_days = @month_days.filter{ |d| d.wday > 0 && d.wday < 6 }.size
+    
   end
 
   # GET /journals/1 or /journals/1.json
   def show
+    respond_to do |format|
+      format.js{ render layout: false}
+    end
   end
 
   # GET /journals/new

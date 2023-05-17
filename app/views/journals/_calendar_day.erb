@@ -12,7 +12,7 @@
             <% end %>
         <% elsif day.month == @reference_date.month %>
             <% journal_from_day = get_journal_from_day(day, @journals)%>
-            <%= journal_from_day == nil ? day.day.to_s : link_to( (day.day.to_s), journal_from_day)  %>
+            <%= journal_from_day == nil ? day.day.to_s : (link_to( (day.day.to_s), journal_from_day, remote: true))  %>
         <% else %>
             <%= day.day.to_s %>
         <% end %>

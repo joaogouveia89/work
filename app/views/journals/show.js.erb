@@ -1,0 +1,7 @@
+var modal = new BS.Modal(document.getElementById('journalModal'));
+
+$('.modal-title').html("<%= j @journal.updated_at.strftime("%d/%m/%Y")  %>")
+
+$('.modal-body').html("<%= j render('show', journal: @journal) %>")
+
+modal.toggle();
