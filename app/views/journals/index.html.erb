@@ -13,9 +13,12 @@
     <header>
       <!-- Month name -->
       <h2><%= @reference_date.strftime("%B").capitalize %></h2>
-
-      <%= link_to "", journals_path(:m => @previous_month.month, :y => @previous_month.year), :class  => "btn-prev fa-solid fa-angle-left" %>
-      <%= link_to "", journals_path(:m => @next_month.month, :y => @next_month.year), :class  => "btn-next fa-solid fa-angle-right" %>
+      <% if @show_previous_month %>
+        <%= link_to "", journals_path(:m => @previous_month.month, :y => @previous_month.year), :class  => "btn-prev fa-solid fa-angle-left" %>
+      <% end %>
+      <% if @show_next_month %>
+        <%= link_to "", journals_path(:m => @next_month.month, :y => @next_month.year), :class  => "btn-next fa-solid fa-angle-right" %>
+      <% end %>
       <p> <%= @business_days %> dias uteis</p>
 
     </header>
