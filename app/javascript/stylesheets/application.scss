@@ -17,3 +17,10 @@ $table-cell-padding-y: .9rem;
     margin-right: 12px;
     width:23%;
 }
+
+a[aria-expanded=true] .fa-plus {
+    display: none;
+ }
+ a[aria-expanded=false] .fa-minus {
+    display: none;
+ }
