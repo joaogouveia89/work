@@ -84,151 +84,58 @@
                         <tr>
                         <th scope="col" colspan="1"></th>
                         <th scope="col" class="text-center"><%= @last_month.strftime("%B") %></th>
-                        <th scope="col" colspan="1"></th>
                         <th scope="col" class="text-center"><%= @today.strftime("%B") %></th>
                         </tr>
                     </thead>
                      <tr>
                         <th>Meetings</th>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].meetings[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_meetings_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].meetings.values %>" ></canvas>
                             </div>
                         </td>
-                        <td class="bg-light"></td>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].meetings[2] %> %</div>
-                                </div>
+                             <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_meetings_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].meetings.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Current Task</th>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].current_task[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_currenttask_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].current_task.values %>" ></canvas>
                             </div>
                         </td>
-                        <td class="bg-light"></td>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].current_task[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_currenttask_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].current_task.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
                      <tr>
                         <th>Team Interaction</th>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].team_interaction[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_teaminteraction_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].team_interaction.values %>" ></canvas>
                             </div>
                         </td>
-                        <td class="bg-light"></td>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].team_interaction[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_teaminteraction_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].team_interaction.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Humor</th>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:last_month].humor[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_humor_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].humor.values %>" ></canvas>
                             </div>
                         </td>
-                        <td class="bg-light"></td>
                         <td>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-frown fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[0] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-meh fa-lg"></i>
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[1] %> %</div>
-                                </div>
-                                <div class="col text-center">
-                                    <i class="fa-regular fa-face-smile fa-lg"></i> 
-                                    <div><%= @current_month_vs_las_month[:journals][:current_month].humor[2] %> %</div>
-                                </div>
+                            <div style=" height: 200px;" class="d-flex justify-content-center">
+                                <canvas id="chart_humor_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].humor.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
