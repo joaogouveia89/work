@@ -19,7 +19,7 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">About yesterday</h5>
+                <h5 class="card-title">About <%= @today.wday == 1 ? "Friday" : "yesterday" %> </h5>
                 <hr />
                 <ul>
                     <li><%= @from_yesterday[:num_dailies] %> dailies</li>

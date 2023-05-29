@@ -5,14 +5,16 @@ class DashboardsController < ApplicationController
         @today = Date.today 
         @last_month = @today- 1.month
 
+        yesterday = @today.wday == 1 ? (@today - 3.day) : Date.yesterday
+
         @open_tickets = Ticket.where(status: Ticket.statuses[:open])
 
-        dailies =  Daily.where(updated_at: Date.yesterday.beginning_of_day...Date.yesterday.end_of_day)
+        dailies =  Daily.where(updated_at: yesterday.beginning_of_day...yesterday.end_of_day)
 
         @from_yesterday = {
             :num_dailies => dailies.count,
             :num_worked_tasks => dailies.map{ |d| d.ticket.id }.uniq.count,
-            :has_journal => !Journal.where(updated_at: Date.yesterday.beginning_of_day...Date.yesterday.end_of_day).empty?
+            :has_journal => !Journal.where(updated_at: yesterday.beginning_of_day...yesterday.end_of_day).empty?
         }
 
         closed_tickets_map = Ticket.where(status: Ticket.statuses[:closed], updated_at: (@last_month.beginning_of_month)...@today).group_by { |d| d.updated_at.month }
