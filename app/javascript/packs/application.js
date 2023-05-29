@@ -68,6 +68,13 @@ function generateDashboardCharts(idsList){
                     backgroundColor: backgroundsColors,
                 }],
             },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                }
+           }
         });
 
         chartCurrentMonth = new Chart(htmlElementCurrentMonth, {
@@ -79,6 +86,13 @@ function generateDashboardCharts(idsList){
                     backgroundColor: backgroundsColors,
                 }],
             },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                }
+           }
         });
     }
 }
