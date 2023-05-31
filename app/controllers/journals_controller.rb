@@ -4,8 +4,9 @@ class JournalsController < ApplicationController
 
   # GET /journals or /journals.json
   def index
-    @journals = Journal.where(updated_at: [@month_first_day..(@month_last_day)])
+    @journals = Journal.where(updated_at: [@month_first_day.beginning_of_day..(@month_last_day.end_of_day)])
     @today_journal = @journals.select{ |j| j.updated_at.to_date == @today.to_date }.first
+    
     @calendar_days = get_calendar_days
 
     @business_days = @month_days.filter{ |d| d.wday > 0 && d.wday < 6 }.size
