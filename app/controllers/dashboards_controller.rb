@@ -34,7 +34,7 @@ class DashboardsController < ApplicationController
         }
         
         @current_month_vs_last_month[:closed_tickets][:perc_diff] = (@current_month_vs_last_month[:closed_tickets][:current_month] == 0 || @current_month_vs_last_month[:closed_tickets][:last_month] == 0) ? 0 : (percentage_calculation(@current_month_vs_last_month[:closed_tickets][:current_month], @current_month_vs_last_month[:closed_tickets][:last_month]) - 100)
-        @current_month_vs_last_month[:journals][:perc_diff] = (@current_month_vs_last_month[:journals][:current_month] == nil || @current_month_vs_last_month[:journals][:last_month] == nil) ? 0 : (percentage_calculation(@current_month_vs_last_month[:journals][:current_month], @current_month_vs_last_month[:journals][:last_month])  - 100)
+        @current_month_vs_last_month[:journals][:perc_diff] = (@current_month_vs_last_month[:journals][:current_month] == nil || @current_month_vs_last_month[:journals][:last_month] == nil) ? 0 : (percentage_calculation(@current_month_vs_last_month[:journals][:current_month].size, @current_month_vs_last_month[:journals][:last_month].size)  - 100)
     end
 
     private
