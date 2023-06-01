@@ -49,28 +49,28 @@
                     <tbody>
                         <tr>
                             <th scope="row" colspan="1" class="text-center">Closed Tickets</th>
-                            <td><%= @current_month_vs_las_month[:closed_tickets][:last_month] %></td>
-                            <td><%= @current_month_vs_las_month[:closed_tickets][:current_month] %></td>
-                            <td style="color: <%= @current_month_vs_las_month[:closed_tickets][:perc_diff] >= 0 ? "green" : "red" %>;">
-                                <% if @current_month_vs_las_month[:closed_tickets][:perc_diff]  > 0 %>
+                            <td><%= @current_month_vs_last_month[:closed_tickets][:last_month] %></td>
+                            <td><%= @current_month_vs_last_month[:closed_tickets][:current_month] %></td>
+                            <td style="color: <%= @current_month_vs_last_month[:closed_tickets][:perc_diff] >= 0 ? "green" : "red" %>;">
+                                <% if @current_month_vs_last_month[:closed_tickets][:perc_diff]  > 0 %>
                                     &gt;
-                                <% elsif @current_month_vs_las_month[:closed_tickets][:perc_diff]  < 0 %>
+                                <% elsif @current_month_vs_last_month[:closed_tickets][:perc_diff]  < 0 %>
                                     &lt;
                                 <% end %>
-                                <%= @current_month_vs_las_month[:closed_tickets][:perc_diff] %>%
+                                <%= @current_month_vs_last_month[:closed_tickets][:perc_diff] %>%
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" colspan="1" class="text-center">Journals</th>
-                            <td><%= @current_month_vs_las_month[:journals][:last_month].size %></td>
-                            <td><%= @current_month_vs_las_month[:journals][:current_month].size %></td>
-                            <td style="color: <%= @current_month_vs_las_month[:journals][:perc_diff] >= 0 ? "green" : "red" %>;">
-                                <% if @current_month_vs_las_month[:journals][:perc_diff] > 0 %>
+                            <td><%= @current_month_vs_last_month[:journals][:last_month] == nil ? 0 : @current_month_vs_last_month[:journals][:last_month].size %></td>
+                            <td><%= @current_month_vs_last_month[:journals][:current_month] == nil ? 0 : @current_month_vs_last_month[:journals][:current_month].size %></td>
+                            <td style="color: <%= @current_month_vs_last_month[:journals][:perc_diff] >= 0 ? "green" : "red" %>;">
+                                <% if @current_month_vs_last_month[:journals][:perc_diff] > 0 %>
                                     &gt;
-                                <% elsif @current_month_vs_las_month[:journals][:perc_diff] < 0 %>
+                                <% elsif @current_month_vs_last_month[:journals][:perc_diff] < 0 %>
                                     &lt;
                                 <% end %>
-                                <%= @current_month_vs_las_month[:journals][:perc_diff].abs %>%
+                                <%= @current_month_vs_last_month[:journals][:perc_diff].abs %>%
                             </td>
                         </tr>
                     </tbody>
@@ -79,7 +79,10 @@
                  <h3 class="text-center">Journal</h3>
                 <hr/>
 
-                <table class="table">
+                <% if @current_month_vs_last_month[:journals][:current_month] == nil || @current_month_vs_last_month[:journals][:last_month]== nil %>
+                    <h4 class="text-center"> Insufficient data to render this section</h4>
+                <% else %>
+                    <table class="table">
                     <thead>
                         <tr>
                         <th scope="col" colspan="1"></th>
@@ -91,12 +94,12 @@
                         <th>Meetings</th>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_meetings_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].meetings.values %>" ></canvas>
+                                <canvas id="chart_meetings_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].meetings.values %>" ></canvas>
                             </div>
                         </td>
                         <td>
                              <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_meetings_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].meetings.values %>" ></canvas>
+                                <canvas id="chart_meetings_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].meetings.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
@@ -104,12 +107,12 @@
                         <th>Current Task</th>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_currenttask_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].current_task.values %>" ></canvas>
+                                <canvas id="chart_currenttask_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].current_task.values %>" ></canvas>
                             </div>
                         </td>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_currenttask_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].current_task.values %>" ></canvas>
+                                <canvas id="chart_currenttask_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].current_task.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
@@ -117,12 +120,12 @@
                         <th>Team Interaction</th>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_teaminteraction_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].team_interaction.values %>" ></canvas>
+                                <canvas id="chart_teaminteraction_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].team_interaction.values %>" ></canvas>
                             </div>
                         </td>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_teaminteraction_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].team_interaction.values %>" ></canvas>
+                                <canvas id="chart_teaminteraction_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].team_interaction.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
@@ -130,16 +133,17 @@
                         <th>Humor</th>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_humor_lm"  data-set="<%= @current_month_vs_las_month[:journals][:last_month].humor.values %>" ></canvas>
+                                <canvas id="chart_humor_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].humor.values %>" ></canvas>
                             </div>
                         </td>
                         <td>
                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_humor_cm"  data-set="<%= @current_month_vs_las_month[:journals][:current_month].humor.values %>" ></canvas>
+                                <canvas id="chart_humor_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].humor.values %>" ></canvas>
                             </div>
                         </td>
                     </tr>
                 </table>
+                <% end %>
             </div>
         </div>
     </div>
