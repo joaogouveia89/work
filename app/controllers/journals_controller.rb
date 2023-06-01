@@ -13,7 +13,9 @@ class JournalsController < ApplicationController
 
     @show_next_month = @today.month != @reference_date.month
 
-    @show_previous_month = @reference_date.month != (Journal.order(:updated_at).limit(1).pluck(:updated_at).first.month)
+  
+
+    @show_previous_month = (Journal.order(:updated_at).limit(1).pluck(:updated_at).first == nil) ?  false : (@reference_date.month != (Journal.order(:updated_at).limit(1).pluck(:updated_at).first.month))
 
   end
 
