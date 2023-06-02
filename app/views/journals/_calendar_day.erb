@@ -4,7 +4,7 @@
     <td><%= day.day %></td>
 <% else %>
     <td class="<%= classes %>">
-        <% if day.to_date == @today.to_date %>
+        <% if day.to_date == @today.to_date && @reference_date.month == day.month %>
             <% if @today_journal == nil %>
                 <%= link_to (day.day.to_s), new_journal_path %>
             <% else %>
