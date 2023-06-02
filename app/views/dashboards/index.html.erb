@@ -57,7 +57,7 @@
                                 <% elsif @current_month_vs_last_month[:closed_tickets][:perc_diff]  < 0 %>
                                     &lt;
                                 <% end %>
-                                <%= @current_month_vs_last_month[:closed_tickets][:perc_diff] %>%
+                                <%= @current_month_vs_last_month[:closed_tickets][:perc_diff].abs %>%
                             </td>
                         </tr>
                         <tr>
