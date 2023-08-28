@@ -9,7 +9,6 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 import * as bootstrap from'bootstrap'
-import Chart from 'chart.js/auto';
 
 import "@fortawesome/fontawesome-free/css/all"
 import "../stylesheets/application"
@@ -38,74 +37,3 @@ window.copyToClipboard = function copyToClipboard(value, iconId, defaultIconClas
         });
     });
 }
-
-function generateDashboardCharts(idsList){
-    var numOfIds = idsList.length;
-
-    const chartType = "pie";
-    const chartsLabels = ["Bad", "Medium", "Good"];
-    const backgroundsColors = [
-        'rgb(220, 53, 69)',
-        'rgb(255, 193, 7)',
-        'rgb(25, 135, 84)'
-        ];
-
-    var htmlElementLastMonth = {}
-    var htmlElementCurrentMonth = {}
-    var chartLastMonth = {}
-    var chartCurrentMonth = {}
-
-    for (var i = 0; i < numOfIds; i++) {
-        htmlElementLastMonth = document.getElementById("chart_" + idsList[i] + "_lm").getContext('2d');
-        htmlElementCurrentMonth = document.getElementById("chart_" + idsList[i] + "_cm").getContext('2d')
-        
-        chartLastMonth = new Chart(htmlElementLastMonth, {
-            type: chartType,
-            data: {
-                labels: chartsLabels,
-                datasets: [{
-                    data: JSON.parse(htmlElementLastMonth.canvas.dataset.set),
-                    backgroundColor: backgroundsColors,
-                }],
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                }
-           }
-        });
-
-        chartCurrentMonth = new Chart(htmlElementCurrentMonth, {
-            type: chartType,
-            data: {
-                labels: chartsLabels,
-                datasets: [{
-                    data: JSON.parse(htmlElementCurrentMonth.canvas.dataset.set),
-                    backgroundColor: backgroundsColors,
-                }],
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                }
-           }
-        });
-    }
-}
-
-document.addEventListener('turbolinks:load', () => {
-    if(window.location.pathname === "/"){
-        generateDashboardCharts(
-            [
-                "meetings",
-                "currenttask",
-                "teaminteraction",
-                "humor"
-            ]
-        );
-    }
-  })
