@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+        <th scope="row">Closed tickets</th>
+        <td><%= data["closed_tickets"] %></td>
+    </tr>
+    <tr>
+        <th scope="row">Notes</th>
+        <td><%= data["notes"] %></td>
+    </tr>
+    <tr>
+        <th scope="row">Journals</th>
+        <td><%= data["journals"] %></td>
+    </tr>
+    <tr>
+        <th scope="row">Journal Average</th>
+        <td><%= sprintf('%.2f', data["journal_average"]) %></td>
+    </tr>
+  </tbody>
+</table>

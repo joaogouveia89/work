@@ -1,150 +1,103 @@
 <br/>
-<h1>Dashboard</h1>
-<hr />
-
 <div class="row">
-    <div class="col">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Open tickets</h5>
+                <h3 class="card-title">Hello João</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-6">
+                        <blockquote class="blockquote">
+                            <p class="pb-2">
+                            "<%= @quote.sentence %>"
+                            </p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer mb-0">
+                            <%= @quote.author %>
+                        </figcaption>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <%= image_tag "avatar.png", width: 150, height: 150 %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">About your tickets</h4>
                 <hr />
                 <ul>
-                    <% @open_tickets.each do |ticket| %>
-                        <li><%= link_to ticket.name, ticket %></li>
-                    <% end %>
+                    <li>Open: <%= @number_of_open_tickets %> </li>
+                    <li>PRs opened: <%= @number_of_open_prs %> </li>
+                    <li>Last note: Recorded <%= date_diff_in_days(@today, @last_note.updated_at) %> days ago, for ticket <%= @last_note.ticket.name %> </li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">About <%= @today.wday == 1 ? "Friday" : "yesterday" %> </h5>
+                <h4 class="card-title">Today Journal</h4>
                 <hr />
-                <ul>
-                    <li><%= @from_yesterday[:num_dailies] %> dailies</li>
-                    <li><%= @from_yesterday[:num_worked_tasks] %> worked tickets</li>
-                    <li>Journal <%= true_false_icon @from_yesterday[:has_journal] %></li>
-                </ul>
+                <% if @day_journal.empty? %>
+                    <h4 class="text-center"> No journal registered yet </h4>
+                <% else %>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">Meetings</div>
+                            <div class="col text-center">Current Task</div>
+                            <div class="col text-center">Team Interaction</div>
+                            <div class="col text-center">Humor</div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.meetings %>"></i></div>
+                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.current_task %>"></i></div>
+                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.team_interaction %>"></i></div>
+                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.humor %>"></i></div>
+                        </div>
+                    </div>
+                    <br />
+                <% end %>
             </div>
         </div>
     </div>
 </div>
 <br />
 <div class="row">
-    <div class="col">
+    <div class="col-12">
         <div class="card">
-            <div class="card-body">
-                <h3 class="text-center">General</h3>
-                <hr/>
-                <table class="table bg-white table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col" colspan="1"></th>
-                        <th scope="col"><%= @last_month.strftime("%B") %></th>
-                        <th scope="col"><%= @today.strftime("%B") %></th>
-                        <th scope="col" colspan="1"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row" colspan="1" class="text-center">Closed Tickets</th>
-                            <td><%= @current_month_vs_last_month[:closed_tickets][:last_month] %></td>
-                            <td><%= @current_month_vs_last_month[:closed_tickets][:current_month] %></td>
-                            <td style="color: <%= @current_month_vs_last_month[:closed_tickets][:perc_diff] >= 0 ? "green" : "red" %>;">
-                                <% if @current_month_vs_last_month[:closed_tickets][:perc_diff]  > 0 %>
-                                    &gt;
-                                <% elsif @current_month_vs_last_month[:closed_tickets][:perc_diff]  < 0 %>
-                                    &lt;
-                                <% end %>
-                                <%= @current_month_vs_last_month[:closed_tickets][:perc_diff].abs %>%
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" colspan="1" class="text-center">Journals</th>
-                            <td><%= @current_month_vs_last_month[:journals][:last_month] == nil ? 0 : @current_month_vs_last_month[:journals][:last_month].size %></td>
-                            <td><%= @current_month_vs_last_month[:journals][:current_month] == nil ? 0 : @current_month_vs_last_month[:journals][:current_month].size %></td>
-                            <td style="color: <%= @current_month_vs_last_month[:journals][:perc_diff] >= 0 ? "green" : "red" %>;">
-                                <% if @current_month_vs_last_month[:journals][:perc_diff] > 0 %>
-                                    &gt;
-                                <% elsif @current_month_vs_last_month[:journals][:perc_diff] < 0 %>
-                                    &lt;
-                                <% end %>
-                                <%= @current_month_vs_last_month[:journals][:perc_diff].abs %>%
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br/>
-                 <h3 class="text-center">Journal</h3>
-                <hr/>
-
-                <% if @current_month_vs_last_month[:journals][:current_month] == nil || @current_month_vs_last_month[:journals][:last_month]== nil %>
-                    <h4 class="text-center"> Insufficient data to render this section</h4>
-                <% else %>
-                    <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col" colspan="1"></th>
-                        <th scope="col" class="text-center"><%= @last_month.strftime("%B") %></th>
-                        <th scope="col" class="text-center"><%= @today.strftime("%B") %></th>
-                        </tr>
-                    </thead>
-                     <tr>
-                        <th>Meetings</th>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_meetings_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].meetings.values %>" ></canvas>
-                            </div>
-                        </td>
-                        <td>
-                             <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_meetings_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].meetings.values %>" ></canvas>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Current Task</th>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_currenttask_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].current_task.values %>" ></canvas>
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_currenttask_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].current_task.values %>" ></canvas>
-                            </div>
-                        </td>
-                    </tr>
-                     <tr>
-                        <th>Team Interaction</th>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_teaminteraction_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].team_interaction.values %>" ></canvas>
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_teaminteraction_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].team_interaction.values %>" ></canvas>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Humor</th>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_humor_lm"  data-set="<%= @current_month_vs_last_month[:journals][:last_month].humor.values %>" ></canvas>
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" height: 200px;" class="d-flex justify-content-center">
-                                <canvas id="chart_humor_cm"  data-set="<%= @current_month_vs_last_month[:journals][:current_month].humor.values %>" ></canvas>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <% end %>
-            </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="historicTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#sevendays-tab-pane" type="button" role="tab" aria-controls="sevendays-tab-pane" aria-selected="true">7 days</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#thirtydays-tab-pane" type="button" role="tab" aria-controls="thirtydays-tab-pane" aria-selected="false">30 days</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#oneyear-tab-pane" type="button" role="tab" aria-controls="oneyear-tab-pane" aria-selected="false">1 year</button>
+                        </li>
+                        </ul>
+                        <div class="tab-content" id="historicTabContent">
+                        <br/>
+                        <div class="tab-pane fade show active" id="sevendays-tab-pane" role="tabpanel" aria-labelledby="sevendays-tab" tabindex="0">
+                            <%= render 'period_report', data: @time_report["7"] %>
+                        </div>
+                        <div class="tab-pane fade" id="thirtydays-tab-pane" role="tabpanel" aria-labelledby="thirtydays-tab" tabindex="0">
+                            <%= render 'period_report', data: @time_report["30"] %>
+                        </div>
+                        <div class="tab-pane fade" id="oneyear-tab-pane" role="tabpanel" aria-labelledby="oneyear-tab" tabindex="0">
+                            <%= render 'period_report', data: @time_report["365"] %>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

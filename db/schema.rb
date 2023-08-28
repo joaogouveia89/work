@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_31_134824) do
+ActiveRecord::Schema.define(version: 2023_08_27_191144) do
 
   create_table "dailies", force: :cascade do |t|
     t.integer "ticket_id", null: false
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 2023_03_31_134824) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ticket_id"], name: "index_links_on_ticket_id"
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.text "sentence"
+    t.string "author"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tickets", force: :cascade do |t|

@@ -1,5 +1,6 @@
 require 'collections/journals_report'
 
+
 class DashboardsController < ApplicationController
     def index
         @today = Date.today 
@@ -7,43 +8,39 @@ class DashboardsController < ApplicationController
 
         yesterday = @today.wday == 1 ? (@today - 3.day) : Date.yesterday
 
-        @open_tickets = Ticket.where(status: Ticket.statuses[:open])
+        @quote = Quote.order("RANDOM()").take
 
-        dailies =  Daily.where(updated_at: yesterday.beginning_of_day...yesterday.end_of_day)
+        @number_of_open_tickets = Ticket.where(status: Ticket.statuses[:open]).size
+        @number_of_open_prs = Ticket.where(status: Ticket.statuses[:pr_opened]).size
+        @last_note = Daily.last
 
-        @from_yesterday = {
-            :num_dailies => dailies.count,
-            :num_worked_tasks => dailies.map{ |d| d.ticket.id }.uniq.count,
-            :has_journal => !Journal.where(updated_at: yesterday.beginning_of_day...yesterday.end_of_day).empty?
-        }
+        @day_journal = Journal.where(updated_at: [@today.beginning_of_day..(@today.end_of_day)])
+        
+        @oneyearago = @today - 365.days
 
-        closed_tickets_map = Ticket.where(status: Ticket.statuses[:closed], updated_at: (@last_month.beginning_of_month.beginning_of_day)...@today.end_of_day).group_by { |d| d.updated_at.month }
-        journals_map = Journal.where(updated_at: (@last_month.beginning_of_month)...@today.end_of_day).group_by { |d| d.updated_at.month }
+        closed_tickets_365 = Ticket.where(updated_at: [@oneyearago.beginning_of_day..(@today.end_of_day)], status: Ticket.statuses[:closed])
+        notes_365 = Daily.where(updated_at: [@oneyearago.beginning_of_day..(@today.end_of_day)])
+        journals_365 = Journal.where(updated_at: [@oneyearago.beginning_of_day..(@today.end_of_day)])
 
-        @current_month_vs_last_month = {
-            :closed_tickets => {
-                :total => map_size(closed_tickets_map[@last_month.month]) + map_size(closed_tickets_map[@today.month]),
-                :last_month => map_size(closed_tickets_map[@last_month.month]),
-                :current_month =>  map_size(closed_tickets_map[@today.month])
+        @time_report = {
+            "7" => {
+                "closed_tickets" => closed_tickets_365.filter{ |ct| ct.updated_at > (@today - 7).beginning_of_day }.count,
+                "notes" => notes_365.filter{ |n| n.updated_at > (@today - 7).beginning_of_day }.count,
+                "journals" => journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.count,
+                "journal_average" => (journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
             },
-            :journals =>{
-                :total => map_size(journals_map[@last_month.month]) + map_size(journals_map[@today.month]),
-                :last_month => journals_map[@last_month.month] == nil ? nil : JournalsReport.new(journals_map[@last_month.month]),
-                :current_month => journals_map[@today.month] == nil ? nil : JournalsReport.new(journals_map[@today.month]) 
+            "30" => {
+                "closed_tickets" => closed_tickets_365.filter{ |ct| ct.updated_at > (@today - 30).beginning_of_day }.count,
+                "notes" => notes_365.filter{ |n| n.updated_at > (@today - 30).beginning_of_day }.count,
+                "journals" => journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.count,
+                "journal_average" => (journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
+            },
+            "365" => {
+                "closed_tickets" => closed_tickets_365.count,
+                "notes" => notes_365.count,
+                "journals" => journals_365.count,
+                "journal_average" => (journals_365.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
             }
         }
-        
-        @current_month_vs_last_month[:closed_tickets][:perc_diff] = (@current_month_vs_last_month[:closed_tickets][:current_month] == 0 || @current_month_vs_last_month[:closed_tickets][:last_month] == 0) ? 0 : (percentage_calculation(@current_month_vs_last_month[:closed_tickets][:current_month], @current_month_vs_last_month[:closed_tickets][:last_month]) - 100)
-        @current_month_vs_last_month[:journals][:perc_diff] = (@current_month_vs_last_month[:journals][:current_month] == nil || @current_month_vs_last_month[:journals][:last_month] == nil) ? 0 : (percentage_calculation(@current_month_vs_last_month[:journals][:current_month].size, @current_month_vs_last_month[:journals][:last_month].size)  - 100)
-    end
-
-    private
-
-    def percentage_calculation value, hundred
-        (100 * value) / hundred
-    end
-
-    def map_size map
-        map == nil ? 0 : map.size
     end
 end
