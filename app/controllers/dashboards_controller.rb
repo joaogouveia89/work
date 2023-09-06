@@ -1,9 +1,10 @@
 require 'collections/journals_report'
+include DateHelper
 
 
 class DashboardsController < ApplicationController
     def index
-        @today = Date.today 
+        @today = Time.zone.now
         @last_month = @today- 1.month
 
         yesterday = @today.wday == 1 ? (@today - 3.day) : Date.yesterday

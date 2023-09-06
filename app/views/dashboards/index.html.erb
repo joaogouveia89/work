@@ -35,7 +35,7 @@
                 <ul>
                     <li>Open: <%= @number_of_open_tickets %> </li>
                     <li>PRs opened: <%= @number_of_open_prs %> </li>
-                    <li>Last note: Recorded <%= date_diff_in_days(@today, @last_note.updated_at) %> days ago, for ticket <%= @last_note.ticket.name %> </li>
+                    <li>Last note: Recorded <%= date_difference_in_words(@last_note.updated_at, @today) %> ago, for ticket <%= @last_note.ticket.name %> </li>
                 </ul>
             </div>
         </div>
