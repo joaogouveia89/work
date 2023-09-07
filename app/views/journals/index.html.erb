@@ -21,6 +21,10 @@
       <% end %>
       <p> <%= @business_days %> dias uteis</p>
 
+      <div class="progress mt-4 d-flex">
+          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= @progress_bar_width %>%" aria-valuenow="<%= @progress_bar_width  %>" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
     </header>
 
     <table class="calendar-table bg-white">

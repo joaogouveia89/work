@@ -15,6 +15,8 @@ class JournalsController < ApplicationController
 
     @show_previous_month = (Journal.order(:updated_at).limit(1).pluck(:updated_at).first == nil) ?  false : (@reference_date.month != (Journal.order(:updated_at).limit(1).pluck(:updated_at).first.month))
 
+    @progress_bar_width = @journals.size * 100 / @business_days
+
   end
 
   # GET /journals/1 or /journals/1.json
