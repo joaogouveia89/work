@@ -24,24 +24,23 @@ class DashboardsController < ApplicationController
         journals_365 = Journal.where(updated_at: [@oneyearago.beginning_of_day..(@today.end_of_day)])
 
         @time_report = {
-            "7" => {
-                "closed_tickets" => closed_tickets_365.filter{ |ct| ct.updated_at > (@today - 7).beginning_of_day }.count,
-                "notes" => notes_365.filter{ |n| n.updated_at > (@today - 7).beginning_of_day }.count,
-                "journals" => journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.count,
-                "journal_average" => (journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.filter{ |j| j.updated_at > (@today - 7).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
-            },
-            "30" => {
-                "closed_tickets" => closed_tickets_365.filter{ |ct| ct.updated_at > (@today - 30).beginning_of_day }.count,
-                "notes" => notes_365.filter{ |n| n.updated_at > (@today - 30).beginning_of_day }.count,
-                "journals" => journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.count,
-                "journal_average" => (journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.filter{ |j| j.updated_at > (@today - 30).beginning_of_day }.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
-            },
-            "365" => {
-                "closed_tickets" => closed_tickets_365.count,
-                "notes" => notes_365.count,
-                "journals" => journals_365.count,
-                "journal_average" => (journals_365.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.sum/journals_365.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten.size.to_f)
-            }
+            "7" => fetch_time_report(7, journals_365, closed_tickets_365, notes_365),
+            "30" => fetch_time_report(30, journals_365, closed_tickets_365, notes_365),
+            "365" => fetch_time_report(365, journals_365, closed_tickets_365, notes_365)
+        }
+    end
+
+    private 
+
+    def fetch_time_report days_ago, journals_365, closed_tickets_365, notes_365
+        journals = journals_365.filter{ |j| j.updated_at > (@today - days_ago.days).beginning_of_day }
+        journals_attr_flatten = journals.map{ |j| [j.meetings, j.current_task, j.team_interaction, j.humor] }.flatten
+
+        {
+            "closed_tickets" => closed_tickets_365.filter{ |ct| ct.updated_at > (@today - days_ago.days).beginning_of_day }.count,
+            "notes" => notes_365.filter{ |n| n.updated_at > (@today - days_ago.days).beginning_of_day }.count,
+            "journals" => journals.count,
+            "journal_average" => journals_attr_flatten.size == 0 ? 0 : (journals_attr_flatten.sum/journals_attr_flatten.size.to_f)
         }
     end
 end
