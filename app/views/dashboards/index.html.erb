@@ -28,25 +28,25 @@
 <br /><br />
 
 <div class="row w-100">
-    <div class="col-md-3">
-        <div class="card border-primary mx-sm-1 p-3">
+    <div class="col-md-4">
+        <div class="card border-primary mx-sm-1 p-4">
             <div class="card border-primary shadow text-primary p-3 my-card" ><span class="fa fa-tasks" aria-hidden="true"></span></div>
             <div class="text-primary text-center mt-3"><h4>Open tasks</h4></div>
             <div class="text-primary text-center mt-2"><h1><%= @number_of_open_tickets %></h1></div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card border-warning mx-sm-1 p-3">
+        <div class="card border-warning mx-sm-1 p-4">
             <div class="card border-warning shadow text-warning p-3 my-card" ><span class="fa fa-code-pull-request" aria-hidden="true"></span></div>
             <div class="text-warning text-center mt-3"><h4>PRs</h4></div>
             <div class="text-warning text-center mt-2"><h1><%= @number_of_open_prs %></h1></div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card border-success mx-sm-1 p-3">
+        <div class="card border-success mx-sm-1 p-4">
             <div class="card border-success shadow text-success p-3 my-card"><span class="fa fa-sticky-note" aria-hidden="true"></span></div>
             <div class="text-success text-center mt-3"><h4>Last note</h4></div>
-            <div class="text-success text-center mt-2"><h5><%= date_difference_in_words(@last_note.updated_at, @today) %> ago, for ticket <%= @last_note.ticket.name %></h5></div>
+            <div class="text-success text-center mt-2"><h1><%= date_difference_in_words(@last_note.updated_at, @today) %> ago</h1></div>
         </div>
     </div>
 </div>
