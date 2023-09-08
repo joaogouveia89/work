@@ -24,3 +24,11 @@ a[aria-expanded=true] .fa-plus {
  a[aria-expanded=false] .fa-minus {
     display: none;
  }
+
+.my-card
+{
+    position:absolute;
+    left:40%;
+    top:-20px;
+    border-radius: 10%;
+}
