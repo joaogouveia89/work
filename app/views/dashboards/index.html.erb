@@ -56,23 +56,38 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Today Journal</h4>
-                <hr />
+                <hr /><br/>
                 <% if @day_journal.empty? %>
                     <h4 class="text-center"> No journal registered yet </h4>
                 <% else %>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col text-center">Meetings</div>
-                            <div class="col text-center">Current Task</div>
-                            <div class="col text-center">Team Interaction</div>
-                            <div class="col text-center">Humor</div>
+                    <div class="row w-100">
+                        <div class="col-md-3">
+                            <div class="card border-<%= get_journal_topic_color  @day_journal.first.meetings %> mx-sm-1 p-3">
+                                <div class="card border-<%= get_journal_topic_color  @day_journal.first.meetings %> shadow text-<%= get_journal_topic_color  @day_journal.first.meetings %> p-3 my-card" ><span class="fa-solid fa-handshake" aria-hidden="true"></span></div>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.meetings %> text-center mt-3"><h4>Meetings</h4></div><br/>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.meetings %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.meetings %>"></i></h1></div>
+                            </div>
                         </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.meetings %>"></i></div>
-                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.current_task %>"></i></div>
-                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.team_interaction %>"></i></div>
-                            <div class="col text-center"><i class="<%= get_journal_topic_icon  @day_journal.first.humor %>"></i></div>
+                        <div class="col-md-3">
+                            <div class="card border-<%= get_journal_topic_color  @day_journal.first.current_task %> mx-sm-1 p-3">
+                                <div class="card border-<%= get_journal_topic_color  @day_journal.first.current_task %> shadow text-<%= get_journal_topic_color  @day_journal.first.current_task %> p-3 my-card"><span class="fa-solid fa-bars-progress" aria-hidden="true"></span></div>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.current_task %> text-center mt-3"><h4>Current Task</h4></div><br/>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.current_task %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.current_task %>"></i></h1></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-<%= get_journal_topic_color  @day_journal.first.team_interaction %> mx-sm-1 p-3">
+                                <div class="card border-<%= get_journal_topic_color  @day_journal.first.team_interaction %> shadow text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> p-3 my-card" ><span class="fa-solid fa-users" aria-hidden="true"></span></div>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> text-center mt-3"><h4>Team Interaction</h4></div><br/>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.team_interaction %>"></i></h1></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-<%= get_journal_topic_color  @day_journal.first.humor %> mx-sm-1 p-3">
+                                <div class="card border-<%= get_journal_topic_color  @day_journal.first.humor %> shadow text-<%= get_journal_topic_color  @day_journal.first.humor %> p-3 my-card" ><span class="fa-solid fa-heart" aria-hidden="true"></span></div>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.humor %> text-center mt-3"><h4>Humor</h4></div><br/>
+                                <div class="text-<%= get_journal_topic_color  @day_journal.first.humor %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.humor %>"></i></h1></div>
+                            </div>
                         </div>
                     </div>
                     <br />

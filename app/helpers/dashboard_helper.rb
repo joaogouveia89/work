@@ -6,11 +6,22 @@ module DashboardHelper
     def get_journal_topic_icon scale
         case scale
         when 0
-            "fa-regular fa-face-frown fa-2xl"
+            "fa-solid fa-face-frown fa-2xl"
         when 1
-            "fa-regular fa-face-meh fa-2xl"
+            "fa-solid fa-face-meh fa-2xl"
         else
-            "fa-regular fa-face-smile fa-2xl"
+            "fa-solid fa-face-smile fa-2xl"
+        end
+    end
+
+    def get_journal_topic_color scale
+        case scale
+        when 0
+            "danger"
+        when 1
+            "warning"
+        else
+            "success"
         end
     end
 end
