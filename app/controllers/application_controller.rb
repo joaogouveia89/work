@@ -9,5 +9,7 @@ class ApplicationController < ActionController::Base
         last_updates_git_command = `git log -1 --date=format:'%d/%m/%Y' --format="%cd - %B"`
         last_updates_git_command = last_updates_git_command.split('-')
         @last_updates = {:date => last_updates_git_command[0].strip, :commit_message => last_updates_git_command[1].strip.humanize }
+
+        @today = Time.zone.now
     end
 end

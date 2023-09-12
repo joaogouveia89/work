@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
   <head>
     <title>Work</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,7 +9,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-light">
+  <body class="bg-light d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <%= link_to 'Work', root_path, class: "navbar-brand" %>
@@ -30,5 +30,9 @@
     <div class="container">
       <%= yield %>
     </div>
+    <br/>
+    <footer class="py-3 my-4 bg-dark footer mt-auto">
+      <p class="text-center text-white">© <%= @today.year %> João Gouveia</p>
+    </footer>
   </body>
 </html>

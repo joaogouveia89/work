@@ -66,6 +66,7 @@
                                 <div class="card border-<%= get_journal_topic_color  @day_journal.first.meetings %> shadow text-<%= get_journal_topic_color  @day_journal.first.meetings %> p-3 my-card" ><span class="fa-solid fa-handshake" aria-hidden="true"></span></div>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.meetings %> text-center mt-3"><h4>Meetings</h4></div><br/>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.meetings %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.meetings %>"></i></h1></div>
+                                <br/>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -73,6 +74,7 @@
                                 <div class="card border-<%= get_journal_topic_color  @day_journal.first.current_task %> shadow text-<%= get_journal_topic_color  @day_journal.first.current_task %> p-3 my-card"><span class="fa-solid fa-bars-progress" aria-hidden="true"></span></div>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.current_task %> text-center mt-3"><h4>Current Task</h4></div><br/>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.current_task %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.current_task %>"></i></h1></div>
+                                <br/>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -80,6 +82,7 @@
                                 <div class="card border-<%= get_journal_topic_color  @day_journal.first.team_interaction %> shadow text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> p-3 my-card" ><span class="fa-solid fa-users" aria-hidden="true"></span></div>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> text-center mt-3"><h4>Team Interaction</h4></div><br/>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.team_interaction %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.team_interaction %>"></i></h1></div>
+                                <br/>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -87,6 +90,7 @@
                                 <div class="card border-<%= get_journal_topic_color  @day_journal.first.humor %> shadow text-<%= get_journal_topic_color  @day_journal.first.humor %> p-3 my-card" ><span class="fa-solid fa-heart" aria-hidden="true"></span></div>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.humor %> text-center mt-3"><h4>Humor</h4></div><br/>
                                 <div class="text-<%= get_journal_topic_color  @day_journal.first.humor %> text-center mt-2"><h1><i class="<%= get_journal_topic_icon  @day_journal.first.humor %>"></i></h1></div>
+                                <br/>
                             </div>
                         </div>
                     </div>
@@ -97,34 +101,41 @@
     </div>
 </div>
 <br />
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="historicTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#sevendays-tab-pane" type="button" role="tab" aria-controls="sevendays-tab-pane" aria-selected="true">7 days</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#thirtydays-tab-pane" type="button" role="tab" aria-controls="thirtydays-tab-pane" aria-selected="false">30 days</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#oneyear-tab-pane" type="button" role="tab" aria-controls="oneyear-tab-pane" aria-selected="false">1 year</button>
-                        </li>
-                        </ul>
-                        <div class="tab-content" id="historicTabContent">
-                        <br/>
-                        <div class="tab-pane fade show active" id="sevendays-tab-pane" role="tabpanel" aria-labelledby="sevendays-tab" tabindex="0">
-                            <%= render 'period_report', data: @time_report["7"] %>
-                        </div>
-                        <div class="tab-pane fade" id="thirtydays-tab-pane" role="tabpanel" aria-labelledby="thirtydays-tab" tabindex="0">
-                            <%= render 'period_report', data: @time_report["30"] %>
-                        </div>
-                        <div class="tab-pane fade" id="oneyear-tab-pane" role="tabpanel" aria-labelledby="oneyear-tab" tabindex="0">
-                            <%= render 'period_report', data: @time_report["365"] %>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
+<div class="row bg-white">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col">7 days</th>
+        <th scope="col">30 days</th>
+        <th scope="col">1 year</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Closed tickets</th>
+            <td><%= @time_report["7"]["closed_tickets"] %></td>
+            <td><%= @time_report["30"]["closed_tickets"] %></td>
+            <td><%= @time_report["365"]["closed_tickets"] %></td>
+        </tr>
+        <tr>
+            <th scope="row">Notes</th>
+            <td><%= @time_report["7"]["notes"] %></td>
+            <td><%= @time_report["30"]["notes"] %></td>
+            <td><%= @time_report["365"]["notes"] %></td>
+        </tr>
+        <tr>
+            <th scope="row">Journals</th>
+            <td><%= @time_report["7"]["journals"] %></td>
+            <td><%= @time_report["30"]["journals"] %></td>
+            <td><%= @time_report["365"]["journals"] %></td>
+        </tr>
+        <tr>
+            <th scope="row">Journal Average</th>
+            <td><%= sprintf('%.2f', @time_report["7"]["journal_average"]) %></td>
+            <td><%= sprintf('%.2f', @time_report["30"]["journal_average"]) %></td>
+            <td><%= sprintf('%.2f', @time_report["365"]["journal_average"]) %></td>
+        </tr>
+    </tbody>
+    </table>
 </div>
